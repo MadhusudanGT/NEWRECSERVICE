@@ -17,7 +17,7 @@ VALUES(555555, CURRENT_TIMESTAMP, '29-01-1993', 'madhu@email.com', 'madhu', 'sud
 
 INSERT INTO rec."user"
 (adhar, created_at, dob, email, first_name, last_name, status, updated_at)
-VALUES(666666, CURRENT_TIMESTAMP, '29-01-1999', 'swagata@email.com', 'swagata', 'madal', 'Active', CURRENT_TIMESTAMP);
+VALUES(666666, CURRENT_TIMESTAMP, '29-01-1999', 'swagata@email.com', 'swagata', 'mandal', 'Active', CURRENT_TIMESTAMP);
 
 
 
