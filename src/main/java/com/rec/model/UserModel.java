@@ -1,7 +1,9 @@
 package com.rec.model;
 
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.sql.Timestamp;
 
 import javax.persistence.Column;
@@ -9,6 +11,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -31,7 +34,7 @@ public class UserModel {
 	@NotNull
 	@Column(name="FirstName")
 	private String FirstName;
-	
+		
 	@NotNull
 	@Column(name="LastName")
 	private String LastName;
@@ -45,6 +48,10 @@ public class UserModel {
 	private Long Adhar;
 	
 	private String Status;
+	
+//	@NotNull
+//	@ManyToMany(mappedBy = "UserID")
+//	private  List<RoleModel>  RoleId=new ArrayList<RoleModel>();
 
 	@Temporal(value=TemporalType.TIMESTAMP)
 	private Date CreatedAt;
@@ -71,6 +78,22 @@ public class UserModel {
 	}
 	
 	
+	public String getFirstName() {
+		return FirstName;
+	}
+
+	public void setFirstName(String firstName) {
+		FirstName = firstName;
+	}
+//
+//	public List<RoleModel> getRoleId() {
+//		return RoleId;
+//	}
+//
+//	public void setRoleId(List<RoleModel> roleId) {
+//		RoleId = roleId;
+//	}
+
 	public String getStatus() {
 		return Status;
 	}

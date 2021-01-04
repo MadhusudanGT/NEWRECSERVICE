@@ -1,6 +1,8 @@
 package com.rec.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -29,11 +31,21 @@ public class UserController {
 		return "home";
 	}
 	@PostMapping(path="/create",consumes = "application/json", produces = "application/json")
-	public UserModel createuser(@RequestBody UserModel data) {
+	public ResponseEntity<UserModel> createuser(@RequestBody UserModel data) {
+		ResponseEntity<UserModel> response =null;
+		UserModel status = null;
+		 try {
+			 status =userservice.Save(data);
+			 response= new ResponseEntity<UserModel>(status, HttpStatus.OK);
+		 }
+		 catch(Exception e) {
+			 response = new ResponseEntity<UserModel>(status,HttpStatus.BAD_REQUEST);
+		 }
 		
-		System.out.print("success"+ data );
-	 
-		 return userservice.Save(data);
+		
+		
+		
+		 return  response;
 	}
 
 }

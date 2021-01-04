@@ -1,11 +1,15 @@
 package com.rec.model;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -25,8 +29,9 @@ public class RoleModel {
 	private Long Id;
 	
 	@NotNull
-	@Column(name="UserId")
-	private Long UserId;
+	 
+	@ManyToMany
+	private List<UserModel> UserID=new ArrayList<UserModel>();
 	
 	@NotNull
 	@Column(name="Title")
@@ -45,9 +50,9 @@ public class RoleModel {
 		
 	}
 	
-	public RoleModel( Long UserId, String Title, String Description, Date CreateAt,Date UpdateAt) {
+	public RoleModel( List UserId, String Title, String Description, Date CreateAt,Date UpdateAt) {
 	  
-		this.UserId=UserId;
+		this.UserID=UserId;
 		this.Title=Title;
 		
 		this.Description=Description;
@@ -65,12 +70,18 @@ public class RoleModel {
 		Id = id;
 	}
 
-	public Long getUserId() {
-		return UserId;
+	public List<UserModel> getUserId() {
+		return UserID;
 	}
 
-	public void setUserId(Long userId) {
-		UserId = userId;
+ 
+
+	public List<UserModel> getUserID() {
+		return UserID;
+	}
+
+	public void setUserID(List<UserModel> userID) {
+		UserID = userID;
 	}
 
 	public String getTitle() {
