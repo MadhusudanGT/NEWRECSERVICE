@@ -8,8 +8,11 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+<<<<<<< HEAD
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
+=======
+>>>>>>> cbaf408b641e164eef2ffc271e4a1e97d7188205
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -59,6 +62,7 @@ public class UserController {
 	}
 	@PostMapping(path="/create",consumes = "application/json", produces = "application/json")
 	public ResponseEntity<UserModel> createuser(@RequestBody UserModel data) {
+<<<<<<< HEAD
 	ResponseEntity<UserModel> response =null;
 	UserModel status = null;
     
@@ -69,6 +73,22 @@ public class UserController {
 	}
 	catch(Exception e) {
 	response = new ResponseEntity<UserModel>(status,HttpStatus.BAD_REQUEST);
+=======
+		ResponseEntity<UserModel> response =null;
+		UserModel status = null;
+		 try {
+			 status =userservice.Save(data);
+			 response= new ResponseEntity<UserModel>(status, HttpStatus.OK);
+		 }
+		 catch(Exception e) {
+			 response = new ResponseEntity<UserModel>(status,HttpStatus.BAD_REQUEST);
+		 }
+		
+		
+		
+		
+		 return  response;
+>>>>>>> cbaf408b641e164eef2ffc271e4a1e97d7188205
 	}
 
 

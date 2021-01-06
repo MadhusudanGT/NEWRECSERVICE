@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 INSERT INTO rec.user
 (adhar, created_at, dob, email, first_name, last_name, status, updated_at)
 VALUES(444444, CURRENT_TIMESTAMP, '29-01-1999', 'shiv@email.com', 'shiv', 'munda', 'Active', CURRENT_TIMESTAMP);
@@ -16,6 +17,29 @@ VALUES(666666, CURRENT_TIMESTAMP, '29-01-1999', 'swagata@email.com', 'swagata', 
 INSERT INTO rec.user
 (adhar, created_at, dob, email, first_name, last_name, status, updated_at)
 VALUES(888888, CURRENT_TIMESTAMP, '29-01-1999', 'madhu@email.com', 'madhusudan', 'gt', 'Active', CURRENT_TIMESTAMP);
+=======
+INSERT INTO rec."user"
+(adhar, created_at, dob, email, first_name, last_name, status, updated_at)
+VALUES(222222, CURRENT_TIMESTAMP, '29-01-1997', 'u@email.com', 'umesh', 'katakam', 'Active', CURRENT_TIMESTAMP);
+
+
+INSERT INTO rec."user"
+(adhar, created_at, dob, email, first_name, last_name, status, updated_at)
+VALUES(333333, CURRENT_TIMESTAMP, '30-01-1998', 'viswa@email.com', 'viswa', 'chand', 'Active', CURRENT_TIMESTAMP);
+
+INSERT INTO rec."user"
+(adhar, created_at, dob, email, first_name, last_name, status, updated_at)
+VALUES(444444, CURRENT_TIMESTAMP, '29-01-1999', 'shiv@email.com', 'shiv', 'munda', 'Active', CURRENT_TIMESTAMP);
+
+INSERT INTO rec."user"
+(adhar, created_at, dob, email, first_name, last_name, status, updated_at)
+VALUES(555555, CURRENT_TIMESTAMP, '29-01-1993', 'madhu@email.com', 'madhu', 'sudhan', 'Active', CURRENT_TIMESTAMP);
+
+INSERT INTO rec."user"
+(adhar, created_at, dob, email, first_name, last_name, status, updated_at)
+VALUES(666666, CURRENT_TIMESTAMP, '29-01-1999', 'swagata@email.com', 'swagata', 'mandal', 'Active', CURRENT_TIMESTAMP);
+
+>>>>>>> cbaf408b641e164eef2ffc271e4a1e97d7188205
 
 
 
@@ -39,6 +63,7 @@ INSERT INTO rec.contact_model
 (address_line1, address_line2, country, phone_no1, phone_no2, pincode, state, status, user_id_id)
 VALUES('Bengalore', 'Bengalore', 'india', '44444444', '4444444', 564000, 'Karnataka', 'Selected', 5);
 
+<<<<<<< HEAD
 INSERT INTO rec.role(created_at, description, title, updated_at)
 VALUES (CURRENT_TIMESTAMP, 'manager','role1', CURRENT_TIMESTAMP);
 
@@ -47,3 +72,8 @@ VALUES (CURRENT_TIMESTAMP, 'HR','role2', CURRENT_TIMESTAMP);
     
 INSERT INTO rec.role(created_at, description, title, updated_at)
 VALUES (CURRENT_TIMESTAMP, 'user','role3', CURRENT_TIMESTAMP);    
+=======
+
+
+
+>>>>>>> cbaf408b641e164eef2ffc271e4a1e97d7188205
