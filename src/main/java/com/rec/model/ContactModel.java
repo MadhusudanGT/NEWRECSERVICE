@@ -1,40 +1,65 @@
 package com.rec.model;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
+import javax.persistence.SequenceGenerator;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
+import javax.validation.constraints.NotNull;
 
-import com.sun.istack.NotNull;
 
 @Entity
 public class ContactModel {
 	
 	
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@GeneratedValue(strategy=GenerationType.AUTO, generator="REC")
+	@SequenceGenerator(name="REC", sequenceName="id_seqence")
+	@Pattern(regexp="^-?\\d{1,19}$")
+	@Size(min=1,max=30)
 	private Long Id;
 	
-	@NotNull
+	@NotNull(message="User Id can not be null")
 	@OneToOne
 	private UserModel UserId;
-	@NotNull
+	@NotNull(message="phone number can not be null")
+	@Size(min=10)
+	@Pattern(regexp="\"^\\\\d{10}$\"")
 	private String PhoneNo1;
 	
-	
+	@Size(min=10)
+	@Pattern(regexp="\"^\\\\d{10}$\"")
 	private String PhoneNo2;
-	@NotNull
+	
+	@NotNull(message="Addressline can not be null")
+	@Size(min=10,max=80)
 	private String AddressLine1;
 	
+	@Size(min=10,max=80)
 	private String AddressLine2;
-	@NotNull
+	
+	@NotNull(message="State can not be null")
+	@Pattern(regexp="/^[A-Za-z]+$/")
+	@Size(min=10,max=40)
 	private String State;
-	@NotNull
+	
+	@NotNull(message="Pincode can not be null")
+	@Pattern(regexp="^-?\\d{1,19}$")
+	@Column(name="Pincode",unique=true)
+	@Size(min=6,max=20)
 	private Long Pincode;
 	
+	@NotNull(message="Country can not be null")
+	@Pattern(regexp="/^[A-Za-z]+$/")
+	@Size(min=10,max=40)
 	private String Country;
 	
+	@Size(min=3,max=30)
+	@Pattern(regexp="/^[A-Za-z]+$/")
 	private String status;
 
 //	public ContactModel() {

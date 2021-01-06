@@ -4,13 +4,17 @@ import java.util.Optional;
 import java.util.function.Function;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.rec.dao.Contactdao;
+import com.rec.exception.ResourceNotFoundException;
 import com.rec.model.ContactModel;
 import com.rec.model.UserModel;
 import com.rec.repository.UserRepository;
@@ -37,6 +41,23 @@ public class ContactController {
 		}) ;
 		 
 		return contact; 
-	 }
-
+	 } 
+	 @PutMapping(path="/update/{id}",consumes = "application/json", produces = "application/json")
+		public  ResponseEntity<ContactModel>updateContact(@PathVariable(value = "id") long id,@Validated@RequestBody ContactModel data)throws ResourceNotFoundException {
+			Optional<ContactModel> ContactModelOptional = contactservice.findById(id);
+			
+			if(ContactModelOptional.isPresent()) {
+	         data.setId(id);
+			}
+//			else {
+//				  System.out.println("Not Found");
+//				return ResponseEntity.notFound().build();
+//			}
+			System.out.println("updated suceessfully"+data);
+			 ContactModel updatedContact = this.contactservice.Save(data);
+			return ResponseEntity.ok(updatedContact);
+					
+		}
+	 
+	 
 }
