@@ -1,27 +1,19 @@
 package com.rec.model;
-<<<<<<< HEAD
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
-=======
-
-
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.sql.Timestamp;
->>>>>>> cbaf408b641e164eef2ffc271e4a1e97d7188205
-
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-<<<<<<< HEAD
-
 import javax.persistence.ManyToMany;
 
 import javax.validation.constraints.Min;
@@ -29,10 +21,9 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Past;
-=======
+
 import javax.persistence.ManyToMany;
 import javax.persistence.SequenceGenerator;
->>>>>>> cbaf408b641e164eef2ffc271e4a1e97d7188205
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -42,7 +33,7 @@ import javax.persistence.TemporalType;
 @Entity
 @Table(name="user")
 public class UserModel {
-<<<<<<< HEAD
+
 @Id
 @GeneratedValue(strategy=GenerationType.IDENTITY)
 @Pattern(regexp="^-?\\d{1,19}$")
@@ -158,166 +149,7 @@ Email = email;
 public Date getDOB() {
 return DOB;
 }
-=======
-	
-	
-	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
-//	   @GeneratedValue(strategy=GenerationType.SEQUENCE, generator="REC")
-	private Long Id;
-	
-	@NotNull
-	@Column(name="FirstName")
-	private String FirstName;
-		
-	@NotNull
-	@Column(name="LastName")
-	private String LastName;
-	
-	@NotNull
-	private String Email;
-	
-	@NotNull
-	private Date DOB;
-	
-	private Long Adhar;
-	
-	private String Status;
-	
-//	@NotNull
-//	@ManyToMany(mappedBy = "UserID")
-//	private  List<RoleModel>  RoleId=new ArrayList<RoleModel>();
 
-	@Temporal(value=TemporalType.TIMESTAMP)
-	private Date CreatedAt;
-	 
-	@Temporal(value=TemporalType.TIMESTAMP)
-	private Date UpdatedAt;
-	
-	UserModel(){
-		
-	}
-	
-	public UserModel( String Firstname, String Lastname,String Email,Date DOB,Long Adhar,String Status,Date CreateAt,Date UpdateAt) {
-	  
-		this.FirstName=Firstname;
-		this.LastName=LastName;
-		this.Email=Email;
-		this.DOB=DOB;
-		this.Adhar=Adhar;
-		this.Status=Status;
-		this.CreatedAt=CreateAt;
-		this.UpdatedAt=UpdateAt;
-		
-		
-	}
-	
-	
-	public String getFirstName() {
-		return FirstName;
-	}
-
-	public void setFirstName(String firstName) {
-		FirstName = firstName;
-	}
-//
-//	public List<RoleModel> getRoleId() {
-//		return RoleId;
-//	}
-//
-//	public void setRoleId(List<RoleModel> roleId) {
-//		RoleId = roleId;
-//	}
-
-	public String getStatus() {
-		return Status;
-	}
-
-	public void setStatus(String status) {
-		Status = status;
-	}
- 
-
-	public Long getId() {
-		return Id;
-	}
-
-	public void setId(Long id) {
-		Id = id;
-	}
-
-	public String getFirstname() {
-		return FirstName;
-	}
-
-	public void setFirstname(String firstname) {
-		FirstName = firstname;
-	}
-
-	public String getLastName() {
-		return LastName;
-	}
-
-	public void setLastName(String lastName) {
-		LastName = lastName;
-	}
-
-	public String getEmail() {
-		return Email;
-	}
-
-	public void setEmail(String email) {
-		Email = email;
-	}
-
-	public Date getDOB() {
-		return DOB;
-	}
-
-	public void setDOB(Date dOB) {
-		DOB = dOB;
-	}
-
-	public Long getAdhar() {
-		return Adhar;
-	}
-
-	public void setAdhar(Long adhar) {
-		Adhar = adhar;
-	}
-
-	public Date getCreatedAt() {
-		return CreatedAt;
-	}
-
-	public void setCreatedAt(Date createdAt) {
-		CreatedAt = createdAt;
-	}
-
-	public Date getUpdatedAt() {
-		return UpdatedAt;
-	}
-
-	public void setUpdatedAt(Date updatedAt) {
-		UpdatedAt = updatedAt;
-	}
-		
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-
-	
->>>>>>> cbaf408b641e164eef2ffc271e4a1e97d7188205
 
 public void setDOB(Date dOB) {
 DOB = dOB;
@@ -362,13 +194,5 @@ return roles;
 public void setRoles(List<RoleModel> roles) {
 this.roles = roles;
 }
-
-
-
-
-
-
-
-
 
 }

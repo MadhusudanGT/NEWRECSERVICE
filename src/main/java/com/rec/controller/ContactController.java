@@ -4,13 +4,13 @@ import java.util.Optional;
 import java.util.function.Function;
 
 import org.springframework.beans.factory.annotation.Autowired;
-<<<<<<< HEAD
+
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
-=======
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
->>>>>>> cbaf408b641e164eef2ffc271e4a1e97d7188205
+
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -54,9 +54,7 @@ public class ContactController {
 
 		 
 		 
-		 
-<<<<<<< HEAD
-		return contact; 
+	
 	 } 
 	 @PutMapping(path="/update/{id}",consumes = "application/json", produces = "application/json")
 		public  ResponseEntity<ContactModel>updateContact(@PathVariable(value = "id") long id,@Validated@RequestBody ContactModel data)throws ResourceNotFoundException {
@@ -70,16 +68,16 @@ public class ContactController {
 //				return ResponseEntity.notFound().build();
 //			}
 			System.out.println("updated suceessfully"+data);
-			 ContactModel updatedContact = this.contactservice.Save(data);
+			 ContactModel updatedContact = this.contactservice.Save(data, id);
 			return ResponseEntity.ok(updatedContact);
 					
-		}
+		
+	 }
 	 
-	 
-}
-=======
+
+
 		
 	 }
 
-}
->>>>>>> cbaf408b641e164eef2ffc271e4a1e97d7188205
+
+

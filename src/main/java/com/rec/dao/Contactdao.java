@@ -1,14 +1,8 @@
 package com.rec.dao;
-
-<<<<<<< HEAD
 import java.util.Optional;
-=======
 import java.util.function.Function;
->>>>>>> cbaf408b641e164eef2ffc271e4a1e97d7188205
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import com.rec.model.ContactModel;
 import com.rec.model.UserModel;
 import com.rec.repository.ContactRepo;
@@ -35,7 +29,7 @@ public class Contactdao {
 			return contact; 
 		
 	}
-<<<<<<< HEAD
+
    
 	public Optional<ContactModel> findById(long id) {
 		System.out.print("sucessfully found");
@@ -43,7 +37,6 @@ public class Contactdao {
 	}
 	
 }
-=======
 
-}
->>>>>>> cbaf408b641e164eef2ffc271e4a1e97d7188205
+
+
