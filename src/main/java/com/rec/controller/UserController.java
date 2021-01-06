@@ -1,16 +1,21 @@
 package com.rec.controller;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
+import java.util.regex.Pattern;
 
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.query.Param;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -116,4 +121,58 @@ public class UserController {
 //	return userservice.addUser(data);
 //	}
 	
+	@GetMapping(path="/search")
+	public List<UserModel> search(@Param("keyword") String keyword) {
+		try {
+			if (isWord(keyword)) {
+				 System.out.print("string");
+				 List<UserModel> result=userservice.search(keyword);
+				 return result;
+			 }
+			 else if(isNumber(keyword)) {
+				 System.out.print("number");
+				 Long i=Long.parseLong(keyword);
+//				 System.out.print(i);
+				 List<UserModel> result=userservice.searchnumber(i);
+				 System.out.print(result);
+				 return result;
+			 }
+			 else if(isDate(keyword)) { 
+				 SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+				 String currentdate = df.format(new Date());
+			      System.out.print(currentdate);
+			      System.out.print(keyword);
+			      
+//		      List<UserModel> result= userservice.finduserbydate(currentdate);
+			      	return null;
+			 }
+			 
+			 else{
+				 System.out.println("combination of string and number");
+				 
+			 }
+			
+		}catch(Exception e) {
+			
+	
+		}
+		 return null; 
+	}
+
+	private boolean isDate(String keyword) {
+		return Pattern.matches("^[0-9]{4}-(3[01]|[12][0-9]|0[1-9])-(1[0-2]|0[1-9]$)", keyword);
+	}
+	private boolean isNumber(String keyword) {
+		return Pattern.matches("[0-9]+", keyword);
+	}
+	private boolean isWord(String keyword) {
+		return Pattern.matches("[a-zA-Z]+",keyword);
+		
+	}
+	
+	@DeleteMapping("/users/{id}")
+	public UserModel deleteUser(@PathVariable(value = "id") Long id) throws ResourceNotFoundException{
+			return userservice.deleteuser(id);
+	}
+
 	}

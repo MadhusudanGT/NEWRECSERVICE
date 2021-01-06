@@ -1,21 +1,21 @@
 INSERT INTO rec.user
 (adhar, created_at, dob, email, first_name, last_name, status, updated_at)
-VALUES(444444, CURRENT_TIMESTAMP, '29-01-1999', 'shiv@email.com', 'shiv', 'munda', 'Active', CURRENT_TIMESTAMP);
+VALUES(444444, CURRENT_TIMESTAMP, '1999-02-02', 'shiv@email.com', 'shiv', 'munda', 'Active', CURRENT_TIMESTAMP);
 
 INSERT INTO rec.user(adhar, created_at, dob, email, first_name, last_name, status, updated_at)
-	VALUES (333333, CURRENT_TIMESTAMP, '30-01-1998', 'viswa@email.com', 'viswa', 'chand', 'Active', CURRENT_TIMESTAMP);
+	VALUES (333333, CURRENT_TIMESTAMP, '1999-02-02', 'viswa@email.com', 'viswa', 'chand', 'Active', CURRENT_TIMESTAMP);
 
 INSERT INTO rec.user
 (adhar, created_at, dob, email, first_name, last_name, status, updated_at)
-VALUES(555555, CURRENT_TIMESTAMP, '29-01-1993', 'madhu@email.com', 'madhu', 'sudhan', 'Active', CURRENT_TIMESTAMP);
+VALUES(555555, CURRENT_TIMESTAMP, '1999-02-02', 'umesh@email.com', 'umesh', 'katkum', 'Active', CURRENT_TIMESTAMP);
 
 INSERT INTO rec.user
 (adhar, created_at, dob, email, first_name, last_name, status, updated_at)
-VALUES(666666, CURRENT_TIMESTAMP, '29-01-1999', 'swagata@email.com', 'swagata', 'mandal', 'Active', CURRENT_TIMESTAMP);
+VALUES(666666, CURRENT_TIMESTAMP, '1999-02-02', 'swagata@email.com', 'swagata', 'mandal', 'Active', CURRENT_TIMESTAMP);
 
 INSERT INTO rec.user
 (adhar, created_at, dob, email, first_name, last_name, status, updated_at)
-VALUES(888888, CURRENT_TIMESTAMP, '29-01-1999', 'madhu@email.com', 'madhusudan', 'gt', 'Active', CURRENT_TIMESTAMP);
+VALUES(888888, CURRENT_TIMESTAMP, '1999-02-02', 'madhu@email.com', 'madhusudan', 'gt', 'Active', CURRENT_TIMESTAMP);
 
 
 

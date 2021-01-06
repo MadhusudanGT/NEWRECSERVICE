@@ -101,4 +101,42 @@ public class Userdao implements UserService {
 
 
 			}
+			
+			
+			@Override
+			public List<UserModel> search(String keyword){
+				System.out.println(keyword);
+				return repo.search(keyword);
+			}
+
+			public List<UserModel> searchnumber(Long i) {
+				System.out.print(i);
+				return repo.searchnumbers(i);
+				
+			}
+			
+			
+			@Override
+			public UserModel deleteuser(Long id) 
+				throws ResourceNotFoundException {
+					UserModel existinguser = this.repo.findById(id)
+							.orElseThrow(() -> new ResourceNotFoundException("user not found for this id :: " + id));
+					RoleModel roleid=this.repo.findRoleID(id);
+					if(roleid.getId()==1)
+					{
+					System.out.print("MANAGER id you can't make inactive");
+					return existinguser;
+					}
+					else{
+						System.out.print("hr user");	
+						existinguser.setStatus("inActive");
+						repo.save(existinguser);
+						return existinguser;
+					}
+						
+			}
+		
+//			public List<UserModel> finduserbydate(String currentdate) {
+//			return this.repo.finduserbydate(currentdate);
+//			}
 }
