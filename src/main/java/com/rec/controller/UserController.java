@@ -1,6 +1,8 @@
 package com.rec.controller;
 
+import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
@@ -32,6 +34,7 @@ import com.rec.dao.Contactdao;
 import com.rec.dao.Userdao;
 import com.rec.dao.service.UserService;
 import com.rec.model.ContactModel;
+import com.rec.model.RoleModel;
 import com.rec.model.UserModel;
 import com.rec.repository.ContactRepo;
 import com.rec.repository.UserRepository;
@@ -139,16 +142,26 @@ public class UserController {
 			 }
 			 else if(isDate(keyword)) { 
 				 SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
-				 String currentdate = df.format(new Date());
-			      System.out.print(currentdate);
-			      System.out.print(keyword);
-			      
-//		      List<UserModel> result= userservice.finduserbydate(currentdate);
-			      	return null;
+				 Timestamp fdt = new Timestamp ((df.parse(keyword)).getTime());
+				 LocalDateTime currentdate=LocalDateTime.now();
+				System.out.print(fdt);
+				System.out.print(currentdate);
+	      List<UserModel> result= userservice.finduserbydate(fdt,currentdate);
+				      	return result;
+			    
+			 }
+			 else if(isPhoneNo(keyword)) {
+				 System.out.print("it is phone no"+keyword);
+				 List<RoleModel> result=userservice.findbyphoneno(keyword);
+				 System.out.print(result);
+				 return null;
 			 }
 			 
 			 else{
 				 System.out.println("combination of string and number");
+				 List<UserModel> result=userservice.findByEmail(keyword);
+				 return result;
+				
 				 
 			 }
 			
@@ -159,11 +172,23 @@ public class UserController {
 		 return null; 
 	}
 
+	private boolean isPhoneNo(String keyword) {
+		if(keyword.length()>=10) {
+			return Pattern.matches("[0-9]+", keyword);
+		}
+		return false;
+		
+	}
+
 	private boolean isDate(String keyword) {
 		return Pattern.matches("^[0-9]{4}-(3[01]|[12][0-9]|0[1-9])-(1[0-2]|0[1-9]$)", keyword);
 	}
 	private boolean isNumber(String keyword) {
+		if(keyword.length()<=5) {
 		return Pattern.matches("[0-9]+", keyword);
+	
+		}
+		return false;
 	}
 	private boolean isWord(String keyword) {
 		return Pattern.matches("[a-zA-Z]+",keyword);

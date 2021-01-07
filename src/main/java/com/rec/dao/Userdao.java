@@ -1,5 +1,7 @@
 package com.rec.dao;
 
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -135,8 +137,15 @@ public class Userdao implements UserService {
 					}
 						
 			}
+			public List<UserModel> findByEmail(String keyword) {
+				return repo.findByEmailid(keyword);
+				
+			}
+			public List<RoleModel> findbyphoneno(String phoneno) {
+				return repo.findbyphoneno(phoneno);
+			}
 		
-//			public List<UserModel> finduserbydate(String currentdate) {
-//			return this.repo.finduserbydate(currentdate);
-//			}
+			public List<UserModel> finduserbydate(Timestamp fdt, LocalDateTime currentdate) {
+			return this.repo.finduserbydate(fdt,currentdate);
+			}
 }
