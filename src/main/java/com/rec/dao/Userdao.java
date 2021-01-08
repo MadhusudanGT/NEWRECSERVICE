@@ -52,7 +52,7 @@ public class Userdao implements UserService {
 	          if(uservalidation.isFirstName(data.getFirstName())==true||
 	        		  uservalidation.isLastName(data.getLastName())==true||
 	        		  uservalidation.isEmailId(data.getEmail())==true||
-//	        		  uservalidation.isDOB(data.getDOB())==true||
+	        		  uservalidation.isDOB((CharSequence) data.getDOB())==true||
 //	        		  uservalidation.isAdhar(data.getAdhar())==true||
 	        		  uservalidation.isStatus(data.getStatus())==true){
 	        	      System.out.println("successful");
@@ -60,7 +60,7 @@ public class Userdao implements UserService {
 		 			UserModelOptional.setLastName(data.getLastName());
 		 			UserModelOptional.setEmail(data.getEmail());
 		 			UserModelOptional.setStatus(data.getStatus());
-//		 			UserModelOptional.setDOB(data.getDOB());
+		 			UserModelOptional.setDOB(data.getDOB());
 //		 			UserModelOptional.setAdhar(data.getAdhar());
 		 			 updatedUser = this.repo.save(data);
 		 			return updatedUser;
@@ -69,9 +69,8 @@ public class Userdao implements UserService {
 
          else
          {
-        	 System.out.print("check the email id");
+        	 System.out.print("Insert data properly");
          }
-
         
         }
         catch(Exception e) {
@@ -80,35 +79,6 @@ public class Userdao implements UserService {
         return null;
     	
 	}
-
-       
-
-//		if(UserModelOptional!=null) {
-//		UserModelOptional.setId(data.getId());
-//		System.out.println("id"+id);
-//		}
-//		if(data.getFirstName()!=null) {
-//			UserModelOptional.setFirstName(data.getFirstName());
-//		}
-//		if(data.getLastName()!=null) {
-//			UserModelOptional.setLastName(data.getLastName());
-//		}
-////		if(data.getAdhar()!=null) {
-////			UserModelOptional.setAdhar(data.getAdhar());
-////		}
-//		if(uservalidation.isEmailId(data.getEmail())==true) {
-//			System.out.println("true");
-//			UserModelOptional.setEmail(data.getEmail());
-//		}
-//		if(data.getDOB()!=null) {
-//			UserModelOptional.setDOB(data.getDOB());
-//		}
-//		if(data.getStatus()!=null) {
-//			UserModelOptional.setStatus(data.getStatus());
-//		}
-		
-
-
 		
 		public ResponseEntity<UserModel> getUserById(Long uid) throws ResourceNotFoundException{
 		// ResponseEntity<Optional> response=null;

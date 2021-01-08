@@ -33,6 +33,9 @@ public class UserValidation implements ConstraintValidator<UniqueConstraint, Str
     public boolean isDate(String keyword) {
     	return Pattern.matches("^[0-9]{4}-(3[01]|[12][0-9]|0[1-9])-(1[0-2]|0[1-9]$)", keyword);
     }
+    public boolean isDOB(CharSequence charSequence) {
+    	return Pattern.matches("^[0-9]{4}-(3[01]|[12][0-9]|0[1-9])-(1[0-2]|0[1-9]$)", charSequence);
+    }
     public boolean isNumber(String keyword) {
     	if(keyword.length()<=5) {
     	return Pattern.matches("[0-9]+", keyword);
@@ -46,7 +49,7 @@ public class UserValidation implements ConstraintValidator<UniqueConstraint, Str
     }
     public static boolean isEmailId(String keyword) {
     	System.out.print(keyword);
-    	if(keyword.length()>=12) {
+    	if(keyword.length()>=10) {
     		return Pattern.matches("^([_a-zA-Z0-9-]+(\\.[_a-zA-Z0-9-]+)*@[a-zA-Z0-9-]+(\\.[a-zA-Z0-9-]+)*(\\.[a-zA-Z]{1,6}))?$", keyword);
 		}
 		return false;
@@ -75,14 +78,12 @@ public class UserValidation implements ConstraintValidator<UniqueConstraint, Str
     	}
     	return false;
     }
-    public static boolean isAdhar(String keyword) {
-    	System.out.print(keyword);
-    	return Pattern.matches("^-?\\\\d{1,19}$", keyword);
+    public static boolean isAdhar(CharSequence long1) {
+    	System.out.print(long1);
+    	return Pattern.matches("^-?\\\\d{1,19}$", long1);
     }
    
-    private boolean isDOB(String keyword) {
-		return Pattern.matches("^[0-9]{4}-(3[01]|[12][0-9]|0[1-9])-(1[0-2]|0[1-9]$)", keyword);
-	}
+    
     public static boolean isPhoneNo(String keyword) {
     	System.out.print(keyword);
     		if(keyword.length()>=10) {
