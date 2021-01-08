@@ -15,7 +15,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
-
+import javax.persistence.OneToOne;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -53,7 +53,7 @@ private String FirstName;
 private String LastName;
 
 @NotNull(message="Email can not be null")
-@Pattern(regexp="^([_a-zA-Z0-9-]+(\\.[_a-zA-Z0-9-]+)*@[a-zA-Z0-9-]+(\\.[a-zA-Z0-9-]+)*(\\.[a-zA-Z]{1,6}))?$",
+@Pattern(regexp="^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+$s",
 message="Email is invalid")
 @Size(min=10,max=30)
 @Column(name="Email",unique=true)
@@ -68,8 +68,8 @@ private Date DOB;
 
 @Min(12)
 @Pattern(regexp="^-?\\d{1,19}$",message="Adhar is invalid")
-@Column(name="Adhar",unique=true)
-private Long Adhar;
+@Column(name="Adhar")
+private String Adhar;
 
 @Size(min=10,max=30)
 @Pattern(regexp="/^[A-Za-z]+$/")
@@ -81,8 +81,21 @@ private Date CreatedAt;
 @Temporal(value=TemporalType.TIMESTAMP)
 private Date UpdatedAt;
 
-@ManyToMany(mappedBy = "users", cascade = CascadeType.ALL)
+
+@OneToOne(cascade = CascadeType.ALL)
+private ContactModel contact;
+
+
+@ManyToMany( cascade = CascadeType.ALL)
 private List<RoleModel> roles=new ArrayList<>();
+
+public ContactModel getContact() {
+	return contact;
+}
+
+public void setContact(ContactModel contact) {
+	this.contact = contact;
+}
 
 public UserModel() {
 super();
@@ -94,7 +107,7 @@ public UserModel(@Pattern(regexp = "^-?\\d{1,19}$") @Size(min = 1, max = 30) Lon
 @NotNull(message = "Last name can not be null") @Size(min = 3, max = 30) @Pattern(regexp = "/^[A-Za-z]+$/") String lastName,
 @NotNull(message = "Email can not be null") @Pattern(regexp = "^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+$s", message = "Email is invalid") @Size(min = 10, max = 30) String email,
 @NotNull(message = "DOB cannot be null") @Pattern(regexp = "dd-mm-yyyy", message = "DOB is invalid") @Past Date dOB,
-@Min(12) @Pattern(regexp = "^-?\\d{1,19}$", message = "Adhar is invalid") Long adhar,
+@Min(12) @Pattern(regexp = "^-?\\d{1,19}$", message = "Adhar is invalid") String adhar,
 @Size(min = 10, max = 30) @Pattern(regexp = "/^[A-Za-z]+$/") String status, Date createdAt, Date updatedAt,
 List<RoleModel> roles) {
 super();
@@ -155,11 +168,11 @@ public void setDOB(Date dOB) {
 DOB = dOB;
 }
 
-public Long getAdhar() {
+public String getAdhar() {
 return Adhar;
 }
 
-public void setAdhar(Long adhar) {
+public void setAdhar(String adhar) {
 Adhar = adhar;
 }
 

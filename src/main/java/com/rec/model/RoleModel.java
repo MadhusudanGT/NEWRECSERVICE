@@ -67,12 +67,12 @@ private Date CreatedAt;
 private Date UpdatedAt;
 
 
-@ManyToMany(cascade = CascadeType.ALL)
-@JoinTable(name = "users_roles",
-joinColumns = @JoinColumn(name = "role_id",referencedColumnName = "id"),
-inverseJoinColumns = @JoinColumn(name = "user_id",referencedColumnName = "id")
-)
-@JsonIgnore
+@ManyToMany(cascade = CascadeType.ALL, mappedBy="roles")
+//@JoinTable(name = "users_roles",
+//joinColumns = @JoinColumn(name = "role_id",referencedColumnName = "id"),
+//inverseJoinColumns = @JoinColumn(name = "user_id",referencedColumnName = "id")
+//)
+//@JsonIgnore
 private List<UserModel> users=new ArrayList();
 
 

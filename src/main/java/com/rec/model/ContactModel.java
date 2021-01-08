@@ -24,8 +24,8 @@ public class ContactModel {
 	private Long Id;
 	
 	@NotNull(message="User Id can not be null")
-	@OneToOne
-	private UserModel UserId;
+	@OneToOne(mappedBy="contact")
+	private UserModel User;
 	@NotNull(message="phone number can not be null")
 	@Size(min=10)
 	@Pattern(regexp="\"^\\\\d{10}$\"")
@@ -49,7 +49,7 @@ public class ContactModel {
 	
 	@NotNull(message="Pincode can not be null")
 	@Pattern(regexp="^-?\\d{1,19}$")
-	@Column(name="Pincode",unique=true)
+	@Column(name="Pincode")
 	@Size(min=6,max=20)
 	private Long Pincode;
 	
@@ -88,11 +88,19 @@ public class ContactModel {
  
 
 	public UserModel getUserId() {
-		return UserId;
+		return User;
 	}
 
 	public void setUserId(UserModel userId) {
-		UserId = userId;
+		User = userId;
+	}
+
+	public UserModel getUser() {
+		return User;
+	}
+
+	public void setUser(UserModel user) {
+		User = user;
 	}
 
 	public String getPhoneNo1() {

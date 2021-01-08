@@ -1,17 +1,12 @@
 package com.rec.util;
-
 import java.util.Date;
-
 import java.util.regex.Pattern;
-
 import javax.persistence.UniqueConstraint;
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
 import javax.validation.Validator;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import com.rec.dao.Userdao;
 import com.rec.model.UserModel;
 @Service
@@ -54,8 +49,6 @@ public class UserValidation implements ConstraintValidator<UniqueConstraint, Str
 		}
 		return false;
 		
-    	
-    	
     }
     public static boolean isFirstName(String keyword) {
     	System.out.print(keyword);
@@ -78,9 +71,9 @@ public class UserValidation implements ConstraintValidator<UniqueConstraint, Str
     	}
     	return false;
     }
-    public static boolean isAdhar(CharSequence long1) {
-    	System.out.print(long1);
-    	return Pattern.matches("^-?\\\\d{1,19}$", long1);
+    public static boolean isAdhar(CharSequence keyword) {
+    	System.out.print(keyword);
+    	return Pattern.matches("[0-9]+", keyword);
     }
    
     
