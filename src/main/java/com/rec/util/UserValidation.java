@@ -1,6 +1,7 @@
 package com.rec.util;
 
 import java.util.Date;
+
 import java.util.regex.Pattern;
 
 import javax.persistence.UniqueConstraint;
@@ -80,5 +81,5 @@ public class UserValidation implements ConstraintValidator<UniqueConstraint, Str
 		// TODO Auto-generated method stub
 		return false;
 	}
-
+	
 }

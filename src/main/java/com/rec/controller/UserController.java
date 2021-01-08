@@ -40,6 +40,7 @@ import com.rec.repository.ContactRepo;
 import com.rec.repository.UserRepository;
 import com.rec.util.UserValidation;
 //import com.rec.util.UserValidation;
+import com.rec.util.UserValidation;
 
 
 @CrossOrigin 
@@ -131,6 +132,7 @@ public class UserController {
 		ResponseEntity<UserModel> response =null;
 		UserModel status = null;
 		try {
+
 		if (userval.isWord(keyword)) {
 		System.out.print("string");
 		List<UserModel> result=userservice.search(keyword);
@@ -171,26 +173,18 @@ public class UserController {
 		response= new ResponseEntity<UserModel>(status, HttpStatus.OK);
 		return result;
 
-
-		}
-
+		}			
+			
 		}catch(Exception e) {
+			
+			response= new ResponseEntity<UserModel>(status, HttpStatus.BAD_REQUEST);
 
-		response= new ResponseEntity<UserModel>(status, HttpStatus.BAD_REQUEST);
 		}
 		return null;
 	}
 
-	private boolean isDate(String keyword) {
-		return Pattern.matches("^[0-9]{4}-(3[01]|[12][0-9]|0[1-9])-(1[0-2]|0[1-9]$)", keyword);
-	}
-	private boolean isNumber(String keyword) {
-		return Pattern.matches("[0-9]+", keyword);
-	}
-	private boolean isWord(String keyword) {
-		return Pattern.matches("[a-zA-Z]+",keyword);
-		
-	}
+
+
 	
 	@DeleteMapping("/users/{id}")
 	public UserModel deleteUser(@PathVariable(value = "id") Long id) throws ResourceNotFoundException{

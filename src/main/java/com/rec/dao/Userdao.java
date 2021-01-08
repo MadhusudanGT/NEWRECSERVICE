@@ -2,7 +2,11 @@ package com.rec.dao;
 
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
+
 import java.util.HashMap;
+
+import java.util.ArrayList;
+
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -33,6 +37,7 @@ public class Userdao implements UserService {
 
 	public UserModel Save(UserModel user) {
 		System.out.print("success"+ user);
+		
 		return repo.save(user);
 	}
 	@Override
@@ -41,6 +46,7 @@ public class Userdao implements UserService {
 		.orElseThrow(() -> new ResourceNotFoundException("user not found for this id :: " + id));
          System.out.print("usermodeloptional"+UserModelOptional);
         UserModel updatedUser;
+
         try {
 	        
 	          if(uservalidation.isFirstName(data.getFirstName())==true||
@@ -60,17 +66,49 @@ public class Userdao implements UserService {
 		 			return updatedUser;
 	         }
 	       
+
          else
          {
         	 System.out.print("check the email id");
          }
+
         
         }
         catch(Exception e) {
         	System.out.print("Exception found");
         }
-		return null;
+        return null;
+    	
 	}
+
+       
+
+//		if(UserModelOptional!=null) {
+//		UserModelOptional.setId(data.getId());
+//		System.out.println("id"+id);
+//		}
+//		if(data.getFirstName()!=null) {
+//			UserModelOptional.setFirstName(data.getFirstName());
+//		}
+//		if(data.getLastName()!=null) {
+//			UserModelOptional.setLastName(data.getLastName());
+//		}
+////		if(data.getAdhar()!=null) {
+////			UserModelOptional.setAdhar(data.getAdhar());
+////		}
+//		if(uservalidation.isEmailId(data.getEmail())==true) {
+//			System.out.println("true");
+//			UserModelOptional.setEmail(data.getEmail());
+//		}
+//		if(data.getDOB()!=null) {
+//			UserModelOptional.setDOB(data.getDOB());
+//		}
+//		if(data.getStatus()!=null) {
+//			UserModelOptional.setStatus(data.getStatus());
+//		}
+		
+
+
 		
 		public ResponseEntity<UserModel> getUserById(Long uid) throws ResourceNotFoundException{
 		// ResponseEntity<Optional> response=null;
@@ -138,7 +176,7 @@ public class Userdao implements UserService {
 					}
 						
 			}
-			
+
 			public List<UserModel> findByEmail(String keyword) {
 				return repo.findByEmailid(keyword);
 
@@ -146,12 +184,8 @@ public class Userdao implements UserService {
 				public List<RoleModel> findbyphoneno(String phoneno) {
 				return repo.findbyphoneno(phoneno);
 				}
-
-				public List<UserModel> finduserbydate(Timestamp fdt, LocalDateTime currentdate) {
-				return this.repo.finduserbydate(fdt,currentdate);
-				}
 		
-//			public List<UserModel> finduserbydate(String currentdate) {
-//			return this.repo.finduserbydate(currentdate);
-//			}
+			public List<UserModel> finduserbydate(Timestamp fdt, LocalDateTime currentdate) {
+			return this.repo.finduserbydate(fdt,currentdate);
+			}
 }
