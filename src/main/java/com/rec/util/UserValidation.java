@@ -53,21 +53,21 @@ public class UserValidation implements ConstraintValidator<UniqueConstraint, Str
     public static boolean isFirstName(String keyword) {
     	System.out.print(keyword);
     	if(keyword.length()>=3) {
-    	return Pattern.matches("/^[A-Za-z]+$/", keyword);
+    	return Pattern.matches("[a-zA-Z]+", keyword);
     	}
     	return false;
     }
     public static boolean isLastName(String keyword) {
     	System.out.print(keyword);
     	if(keyword.length()>=3) {
-    	return Pattern.matches("/^[A-Za-z]+$/", keyword);
+    	return Pattern.matches("[a-zA-Z]+", keyword);
     	}
     	return false;
     }
     public static boolean isStatus(String keyword) {
     	if(keyword.length()>=6) {
     	System.out.print(keyword);
-    	return Pattern.matches("/^[A-Za-z]+$/", keyword);
+    	return Pattern.matches("[a-zA-Z]+", keyword);
     	}
     	return false;
     }

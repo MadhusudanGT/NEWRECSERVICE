@@ -49,19 +49,20 @@ public class Userdao implements UserService {
 
         try {
 	        
-	          if(uservalidation.isFirstName(data.getFirstName())==true||
-	        		  uservalidation.isLastName(data.getLastName())==true||
-	        		  uservalidation.isEmailId(data.getEmail())==true||
-	        		  uservalidation.isDOB((CharSequence) data.getDOB())==true||
-//	        		  uservalidation.isAdhar(data.getAdhar())==true||
-	        		  uservalidation.isStatus(data.getStatus())==true){
+	          if( (uservalidation.isLastName(data.getLastName())==true &&
+	        		  uservalidation.isFirstName(data.getFirstName())==true) ||
+	        		  (uservalidation.isEmailId(data.getEmail())==true &&
+	        		  uservalidation.isDOB((CharSequence) data.getDOB())==true)||
+	        		  (uservalidation.isAdhar(data.getAdhar())==true &&
+	        		  uservalidation.isStatus(data.getStatus())==true))
+	        		  {
 	        	      System.out.println("successful");
 		 			UserModelOptional.setFirstName(data.getFirstName());
 		 			UserModelOptional.setLastName(data.getLastName());
 		 			UserModelOptional.setEmail(data.getEmail());
 		 			UserModelOptional.setStatus(data.getStatus());
 		 			UserModelOptional.setDOB(data.getDOB());
-//		 			UserModelOptional.setAdhar(data.getAdhar());
+		 			UserModelOptional.setAdhar(data.getAdhar());
 		 			 updatedUser = this.repo.save(data);
 		 			return updatedUser;
 	         }
