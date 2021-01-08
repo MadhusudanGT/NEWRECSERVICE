@@ -53,7 +53,7 @@ private String FirstName;
 private String LastName;
 
 @NotNull(message="Email can not be null")
-@Pattern(regexp="^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+$s",
+@Pattern(regexp="^([_a-zA-Z0-9-]+(\\.[_a-zA-Z0-9-]+)*@[a-zA-Z0-9-]+(\\.[a-zA-Z0-9-]+)*(\\.[a-zA-Z]{1,6}))?$",
 message="Email is invalid")
 @Size(min=10,max=30)
 @Column(name="Email",unique=true)

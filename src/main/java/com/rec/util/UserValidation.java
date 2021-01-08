@@ -1,5 +1,7 @@
 package com.rec.util;
 
+import java.util.regex.Pattern;
+
 import javax.persistence.UniqueConstraint;
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
@@ -32,5 +34,33 @@ public class UserValidation implements ConstraintValidator<UniqueConstraint, Str
 		// TODO Auto-generated method stub
 		return false;
 	}
+	
+public static boolean isPhoneNo(String keyword) {
+	System.out.print(keyword);
+		if(keyword.length()>=10) {
+			return Pattern.matches("[0-9]+", keyword);
+		}
+		return false;
+		
+	}
 
+public static boolean isEmailId(String keyword) {
+	System.out.print(keyword);
+	return Pattern.matches("^([_a-zA-Z0-9-]+(\\.[_a-zA-Z0-9-]+)*@[a-zA-Z0-9-]+(\\.[a-zA-Z0-9-]+)*(\\.[a-zA-Z]{1,6}))?$", keyword);
+}
+
+public boolean isDate(String keyword) {
+	return Pattern.matches("^[0-9]{4}-(3[01]|[12][0-9]|0[1-9])-(1[0-2]|0[1-9]$)", keyword);
+}
+public boolean isNumber(String keyword) {
+	if(keyword.length()<=5) {
+	return Pattern.matches("[0-9]+", keyword);
+
+	}
+	return false;
+}
+public boolean isWord(String keyword) {
+	return Pattern.matches("[a-zA-Z]+",keyword);
+	
+}
 }

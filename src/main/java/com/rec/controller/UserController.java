@@ -39,6 +39,7 @@ import com.rec.model.UserModel;
 import com.rec.repository.ContactRepo;
 import com.rec.repository.UserRepository;
 //import com.rec.util.UserValidation;
+import com.rec.util.UserValidation;
 
 
 @CrossOrigin 
@@ -51,8 +52,8 @@ public class UserController {
 	Userdao userservice;
 	@Autowired
 	UserRepository repo;
-//	@Autowired
-//	UserValidation userval;
+	@Autowired
+	UserValidation userval;
 	@GetMapping("/")
 	public String get() {
 		return "home";
@@ -126,33 +127,39 @@ public class UserController {
 	
 	@GetMapping(path="/search")
 	public List<UserModel> search(@Param("keyword") String keyword) {
+		ResponseEntity<UserModel> response =null;
+		UserModel status = null;
 		try {
-			if (isWord(keyword)) {
+			if (userval.isWord(keyword)) {
 				 System.out.print("string");
 				 List<UserModel> result=userservice.search(keyword);
+				 response= new ResponseEntity<UserModel>(status, HttpStatus.OK);
 				 return result;
 			 }
-			 else if(isNumber(keyword)) {
+			 else if(userval.isNumber(keyword)) {
 				 System.out.print("number");
 				 Long i=Long.parseLong(keyword);
 //				 System.out.print(i);
 				 List<UserModel> result=userservice.searchnumber(i);
+				 response= new ResponseEntity<UserModel>(status, HttpStatus.OK);
 				 System.out.print(result);
 				 return result;
 			 }
-			 else if(isDate(keyword)) { 
+			 else if(userval.isDate(keyword)) { 
 				 SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
 				 Timestamp fdt = new Timestamp ((df.parse(keyword)).getTime());
 				 LocalDateTime currentdate=LocalDateTime.now();
 				System.out.print(fdt);
 				System.out.print(currentdate);
 	      List<UserModel> result= userservice.finduserbydate(fdt,currentdate);
+	      response= new ResponseEntity<UserModel>(status, HttpStatus.OK);
 				      	return result;
 			    
 			 }
-			 else if(isPhoneNo(keyword)) {
+			 else if(userval.isPhoneNo(keyword)) {
 				 System.out.print("it is phone no"+keyword);
 				 List<RoleModel> result=userservice.findbyphoneno(keyword);
+				 response= new ResponseEntity<UserModel>(status, HttpStatus.OK);
 				 System.out.print(result);
 				 return null;
 			 }
@@ -160,6 +167,7 @@ public class UserController {
 			 else{
 				 System.out.println("combination of string and number");
 				 List<UserModel> result=userservice.findByEmail(keyword);
+				 response= new ResponseEntity<UserModel>(status, HttpStatus.OK);
 				 return result;
 				
 				 
@@ -167,33 +175,13 @@ public class UserController {
 			
 		}catch(Exception e) {
 			
-	
+			response= new ResponseEntity<UserModel>(status, HttpStatus.BAD_REQUEST);
 		}
 		 return null; 
 	}
 
-	private boolean isPhoneNo(String keyword) {
-		if(keyword.length()>=10) {
-			return Pattern.matches("[0-9]+", keyword);
-		}
-		return false;
-		
-	}
 
-	private boolean isDate(String keyword) {
-		return Pattern.matches("^[0-9]{4}-(3[01]|[12][0-9]|0[1-9])-(1[0-2]|0[1-9]$)", keyword);
-	}
-	private boolean isNumber(String keyword) {
-		if(keyword.length()<=5) {
-		return Pattern.matches("[0-9]+", keyword);
-	
-		}
-		return false;
-	}
-	private boolean isWord(String keyword) {
-		return Pattern.matches("[a-zA-Z]+",keyword);
-		
-	}
+
 	
 	@DeleteMapping("/users/{id}")
 	public UserModel deleteUser(@PathVariable(value = "id") Long id) throws ResourceNotFoundException{
