@@ -46,19 +46,34 @@ public class UserValidation implements ConstraintValidator<UniqueConstraint, Str
     }
     public static boolean isEmailId(String keyword) {
     	System.out.print(keyword);
-    	return Pattern.matches("^([_a-zA-Z0-9-]+(\\.[_a-zA-Z0-9-]+)*@[a-zA-Z0-9-]+(\\.[a-zA-Z0-9-]+)*(\\.[a-zA-Z]{1,6}))?$", keyword);
+    	if(keyword.length()>=12) {
+    		return Pattern.matches("^([_a-zA-Z0-9-]+(\\.[_a-zA-Z0-9-]+)*@[a-zA-Z0-9-]+(\\.[a-zA-Z0-9-]+)*(\\.[a-zA-Z]{1,6}))?$", keyword);
+		}
+		return false;
+		
+    	
+    	
     }
     public static boolean isFirstName(String keyword) {
     	System.out.print(keyword);
+    	if(keyword.length()>=3) {
     	return Pattern.matches("/^[A-Za-z]+$/", keyword);
+    	}
+    	return false;
     }
     public static boolean isLastName(String keyword) {
     	System.out.print(keyword);
+    	if(keyword.length()>=3) {
     	return Pattern.matches("/^[A-Za-z]+$/", keyword);
+    	}
+    	return false;
     }
     public static boolean isStatus(String keyword) {
+    	if(keyword.length()>=6) {
     	System.out.print(keyword);
     	return Pattern.matches("/^[A-Za-z]+$/", keyword);
+    	}
+    	return false;
     }
     public static boolean isAdhar(String keyword) {
     	System.out.print(keyword);
