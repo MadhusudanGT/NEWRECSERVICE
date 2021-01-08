@@ -1,6 +1,8 @@
 package com.rec.controller;
 
+import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
@@ -32,9 +34,11 @@ import com.rec.dao.Contactdao;
 import com.rec.dao.Userdao;
 import com.rec.dao.service.UserService;
 import com.rec.model.ContactModel;
+import com.rec.model.RoleModel;
 import com.rec.model.UserModel;
 import com.rec.repository.ContactRepo;
 import com.rec.repository.UserRepository;
+import com.rec.util.UserValidation;
 //import com.rec.util.UserValidation;
 
 
@@ -48,8 +52,8 @@ public class UserController {
 	Userdao userservice;
 	@Autowired
 	UserRepository repo;
-//	@Autowired
-//	UserValidation userval;
+	@Autowired
+	UserValidation userval;
 	@GetMapping("/")
 	public String get() {
 		return "home";
@@ -60,6 +64,7 @@ public class UserController {
 	System.out.println(id+" "+data);
 //	userval.validate(UniqueConstraint., bindingResult);
 	return userservice.updateuser(id,data);
+	
 
 	}
 	@PostMapping(path="/create",consumes = "application/json", produces = "application/json")
@@ -123,40 +128,57 @@ public class UserController {
 	
 	@GetMapping(path="/search")
 	public List<UserModel> search(@Param("keyword") String keyword) {
+		ResponseEntity<UserModel> response =null;
+		UserModel status = null;
 		try {
-			if (isWord(keyword)) {
-				 System.out.print("string");
-				 List<UserModel> result=userservice.search(keyword);
-				 return result;
-			 }
-			 else if(isNumber(keyword)) {
-				 System.out.print("number");
-				 Long i=Long.parseLong(keyword);
-//				 System.out.print(i);
-				 List<UserModel> result=userservice.searchnumber(i);
-				 System.out.print(result);
-				 return result;
-			 }
-			 else if(isDate(keyword)) { 
-				 SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
-				 String currentdate = df.format(new Date());
-			      System.out.print(currentdate);
-			      System.out.print(keyword);
-			      
-//		      List<UserModel> result= userservice.finduserbydate(currentdate);
-			      	return null;
-			 }
-			 
-			 else{
-				 System.out.println("combination of string and number");
-				 
-			 }
-			
-		}catch(Exception e) {
-			
-	
+		if (userval.isWord(keyword)) {
+		System.out.print("string");
+		List<UserModel> result=userservice.search(keyword);
+		response= new ResponseEntity<UserModel>(status, HttpStatus.OK);
+		return result;
 		}
-		 return null; 
+		else if(userval.isNumber(keyword)) {
+		System.out.print("number");
+		Long i=Long.parseLong(keyword);
+		// System.out.print(i);
+		List<UserModel> result=userservice.searchnumber(i);
+		response= new ResponseEntity<UserModel>(status, HttpStatus.OK);
+		System.out.print(result);
+		return result;
+		}
+		else if(userval.isDate(keyword)) {
+		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+		Timestamp fdt = new Timestamp ((df.parse(keyword)).getTime());
+		LocalDateTime currentdate=LocalDateTime.now();
+		System.out.print(fdt);
+		System.out.print(currentdate);
+		List<UserModel> result= userservice.finduserbydate(fdt,currentdate);
+		response= new ResponseEntity<UserModel>(status, HttpStatus.OK);
+		return result;
+
+		}
+		else if(userval.isPhoneNo(keyword)) {
+		System.out.print("it is phone no"+keyword);
+		List<RoleModel> result=userservice.findbyphoneno(keyword);
+		response= new ResponseEntity<UserModel>(status, HttpStatus.OK);
+		System.out.print(result);
+		return null;
+		}
+
+		else{
+		System.out.println("combination of string and number");
+		List<UserModel> result=userservice.findByEmail(keyword);
+		response= new ResponseEntity<UserModel>(status, HttpStatus.OK);
+		return result;
+
+
+		}
+
+		}catch(Exception e) {
+
+		response= new ResponseEntity<UserModel>(status, HttpStatus.BAD_REQUEST);
+		}
+		return null;
 	}
 
 	private boolean isDate(String keyword) {

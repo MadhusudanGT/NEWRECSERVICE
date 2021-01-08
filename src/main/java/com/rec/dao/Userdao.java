@@ -1,10 +1,12 @@
 package com.rec.dao;
 
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
-
 import javax.validation.Valid;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -38,36 +40,37 @@ public class Userdao implements UserService {
 		UserModel UserModelOptional = repo.findById(id)
 		.orElseThrow(() -> new ResourceNotFoundException("user not found for this id :: " + id));
          System.out.print("usermodeloptional"+UserModelOptional);
-//         try {
-		if(UserModelOptional!=null) {
-		UserModelOptional.setId(id);
-		System.out.println("id"+id);
-		}
-		if(data.getFirstName()!=null) {
-			UserModelOptional.setFirstName(data.getFirstName());
-		}
-		if(data.getLastName()!=null) {
-			UserModelOptional.setLastName(data.getLastName());
-		}
-//		if(data.getAdhar()!=null) {
-//			UserModelOptional.setAdhar(data.getAdhar());
-//		}
-		if(uservalidation.isValid(data.getEmail())) {
-			UserModelOptional.setEmail(data.getEmail());
-		}
-		if(data.getDOB()!=null) {
-			UserModelOptional.setDOB(data.getDOB());
-		}
-		if(data.getStatus()!=null) {
-			UserModelOptional.setStatus(data.getStatus());
-		}
-//         }catch(Exception e) {
-//        	 System.out.print("Exception Found");
-//         }
-		UserModel updatedUser = this.repo.save(data);
-		return updatedUser;
-		}
-
+        UserModel updatedUser;
+        try {
+	        
+	          if(uservalidation.isFirstName(data.getFirstName())==true||
+	        		  uservalidation.isLastName(data.getLastName())==true||
+	        		  uservalidation.isEmailId(data.getEmail())==true||
+//	        		  uservalidation.isDOB(data.getDOB())==true||
+//	        		  uservalidation.isAdhar(data.getAdhar())==true||
+	        		  uservalidation.isStatus(data.getStatus())==true){
+	        	      System.out.println("successful");
+		 			UserModelOptional.setFirstName(data.getFirstName());
+		 			UserModelOptional.setLastName(data.getLastName());
+		 			UserModelOptional.setEmail(data.getEmail());
+		 			UserModelOptional.setStatus(data.getStatus());
+//		 			UserModelOptional.setDOB(data.getDOB());
+//		 			UserModelOptional.setAdhar(data.getAdhar());
+		 			 updatedUser = this.repo.save(data);
+		 			return updatedUser;
+	         }
+	       
+         else
+         {
+        	 System.out.print("check the email id");
+         }
+        
+        }
+        catch(Exception e) {
+        	System.out.print("Exception found");
+        }
+		return null;
+	}
 		
 		public ResponseEntity<UserModel> getUserById(Long uid) throws ResourceNotFoundException{
 		// ResponseEntity<Optional> response=null;
@@ -135,6 +138,18 @@ public class Userdao implements UserService {
 					}
 						
 			}
+			
+			public List<UserModel> findByEmail(String keyword) {
+				return repo.findByEmailid(keyword);
+
+				}
+				public List<RoleModel> findbyphoneno(String phoneno) {
+				return repo.findbyphoneno(phoneno);
+				}
+
+				public List<UserModel> finduserbydate(Timestamp fdt, LocalDateTime currentdate) {
+				return this.repo.finduserbydate(fdt,currentdate);
+				}
 		
 //			public List<UserModel> finduserbydate(String currentdate) {
 //			return this.repo.finduserbydate(currentdate);
