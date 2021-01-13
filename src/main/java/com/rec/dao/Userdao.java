@@ -26,6 +26,7 @@ import com.rec.model.RoleModel;
 import com.rec.model.UserModel;
 import com.rec.repository.UserRepository;
 import com.rec.util.UserValidation;
+import com.rec.util.Validation;
 
 @Service
 public class Userdao implements UserService {
@@ -33,7 +34,7 @@ public class Userdao implements UserService {
 	@Autowired
 	UserRepository repo;
 	@Autowired
-	UserValidation uservalidation;
+	Validation validation;
 
 	public UserModel Save(UserModel user) {
 		System.out.print("success"+ user);
@@ -49,12 +50,12 @@ public class Userdao implements UserService {
 
         try {
 	        
-	          if( (uservalidation.isLastName(data.getLastName())==true &&
-	        		  uservalidation.isFirstName(data.getFirstName())==true) ||
-	        		  (uservalidation.isEmailId(data.getEmail())==true &&
-	        		  uservalidation.isDOB((CharSequence) data.getDOB())==true)||
-	        		  (uservalidation.isAdhar(data.getAdhar())==true &&
-	        		  uservalidation.isStatus(data.getStatus())==true))
+	          if( (validation.isLastName(data.getLastName())==true &&
+	        		  validation.isFirstName(data.getFirstName())==true) ||
+	        		  (validation.isEmailId(data.getEmail())==true &&
+	        		  validation.isDOB((CharSequence) data.getDOB())==true)||
+	        		  (validation.isAdhar(data.getAdhar())==true &&
+	        		 validation.isStatus(data.getStatus())==true))
 	        		  {
 	        	      System.out.println("successful");
 		 			UserModelOptional.setFirstName(data.getFirstName());

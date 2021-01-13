@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 import com.rec.dao.Userdao;
 import com.rec.model.UserModel;
 @Service
-public class UserValidation implements ConstraintValidator<UniqueConstraint, String> {
+public class Validation implements ConstraintValidator<UniqueConstraint, String> {
     
 	
     @Override
@@ -65,6 +65,27 @@ public class UserValidation implements ConstraintValidator<UniqueConstraint, Str
     	return false;
     }
     public static boolean isStatus(String keyword) {
+    	if(keyword.length()>=6) {
+    	System.out.print(keyword);
+    	return Pattern.matches("[a-zA-Z]+", keyword);
+    	}
+    	return false;
+    }
+    public static boolean isEducation(String keyword) {
+    	if(keyword.length()>=6) {
+    	System.out.print(keyword);
+    	return Pattern.matches("[a-zA-Z]+", keyword);
+    	}
+    	return false;
+    }
+    public static boolean isExperience(String keyword) {
+    	if(keyword.length()>=6) {
+    	System.out.print(keyword);
+    	return Pattern.matches("[a-zA-Z]+", keyword);
+    	}
+    	return false;
+    }
+    public static boolean isOtherInfo(String keyword) {
     	if(keyword.length()>=6) {
     	System.out.print(keyword);
     	return Pattern.matches("[a-zA-Z]+", keyword);
