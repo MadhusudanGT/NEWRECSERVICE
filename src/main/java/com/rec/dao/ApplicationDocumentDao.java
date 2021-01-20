@@ -2,13 +2,11 @@ package com.rec.dao;
 
 import java.util.HashMap;
 import java.util.Map;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import com.rec.exception.ResourceNotFoundException;
 import com.rec.model.ApplicationDocumentModel;
-import com.rec.model.ApplicationModel;
 import com.rec.repository.ApplicationDocumentRepository;
 
 @Service
@@ -37,31 +35,11 @@ public class ApplicationDocumentDao {
          System.out.print("applicationdocumentmodeloptional"+ApplicationDocumentModelOptional);
          ApplicationDocumentModel updatedApplicationDocument;
 
-        try {
-	        
-//	          if( (validation.isDOB((CharSequence) app.getAppliedDate())==true &&
-//	        		  validation.isEducation(app.getEducation())==true)||
-//	        		  (validation.isExperience(app.getExperience())==true &&
-//	        		 validation.isOtherInfo(app.getOtherInfo())==true))
-//	        		
-//	        		  {
-//	        	      System.out.println("successful");
-//	        	      ApplicationModelOptional.setAppliedDate(app.getAppliedDate());
-//	        	      ApplicationModelOptional.setEducation(app.getEducation());
-//	        	      ApplicationModelOptional.setExperience(app.getExperience());
-//	        	      ApplicationModelOptional.setOtherInfo(app.getOtherInfo());
-//	     
+        try {    
 		 			 updatedApplicationDocument = this.appdocrepo.save(appdoc);
-		 			return updatedApplicationDocument;
+		 			return appdoc;
 	         }
 	       
-
-//         else
-//         {
-//       	 System.out.print("Insert data properly");
-//        }
-        
-//        }
         catch(Exception e) {
         	System.out.print("Exception found");
         }

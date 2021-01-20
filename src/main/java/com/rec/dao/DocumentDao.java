@@ -42,13 +42,13 @@ public class DocumentDao {
 
         try {
 	        
-	          if( (validation.isFirstName(doc.getDocument())==true &&
-	        		  validation.isFirstName(doc.getName())==true)||
-	        		  (validation.isEmailId(doc.getUrl())==true &&
-	        		   validation.isDOB(doc.getLastUpdate())==true))
+//	          if( (validation.isFirstName(doc.getDocument())==true &&
+//	        		  validation.isFirstName(doc.getName())==true)||
+//	        		  (validation.isEmailId(doc.getUrl())==true &&
+//	        		   validation.isDOB(doc.getLastUpdate())==true))
 	        		
-	        		  {
-	        	      System.out.println("successful");
+//	        		  {
+//	        	      System.out.println("successful");
 		 			DocumentModelOptional.setDocument(doc.getDocument());
 		 			DocumentModelOptional.setName(doc.getName());
 		 			DocumentModelOptional.setUrl(doc.getUrl());
@@ -56,16 +56,16 @@ public class DocumentDao {
 		 			
 		 			
 		 			 updatedDocument = this.docrepo.save(doc);
-		 			return updatedDocument;
+		 			return doc;
 	         }
 	       
 
-         else
-         {
-       	 System.out.print("Insert data properly");
-        }
+//         else
+//         {
+//       	 System.out.print("Insert data properly");
+//        }
         
-        }
+//        }
         catch(Exception e) {
         	System.out.print("Exception found");
         }

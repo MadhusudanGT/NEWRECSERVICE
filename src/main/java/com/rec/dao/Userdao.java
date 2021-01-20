@@ -6,7 +6,7 @@ import java.time.LocalDateTime;
 import java.util.HashMap;
 
 import java.util.ArrayList;
-
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -109,7 +109,7 @@ public class Userdao implements UserService {
 
 			public UserModel addUser(@Valid UserModel user) {
 			System.out.print("success"+ user);
-			user.getRoles().addAll(user.getRoles());
+//			user.getRoles().addAll(user.getRoles());
 			return this.repo.save(user);
 
 
@@ -153,11 +153,10 @@ public class Userdao implements UserService {
 				return repo.findByEmailid(keyword);
 
 				}
-				public List<RoleModel> findbyphoneno(String phoneno) {
-				return repo.findbyphoneno(phoneno);
-				}
-		
-			public List<UserModel> finduserbydate(Timestamp fdt, LocalDateTime currentdate) {
-			return this.repo.finduserbydate(fdt,currentdate);
-			}
+				public List<UserModel> findbyphoneno(String phoneno) {
+					return repo.findbyphoneno(phoneno);
+					}
+				public List<UserModel> finduserbydate(Date date) {
+					return repo.finduserbydate(date);
+					}
 }

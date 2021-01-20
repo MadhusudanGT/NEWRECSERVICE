@@ -47,13 +47,12 @@ public class ApplicationDao {
 //	        		
 //	        		  {
 //	        	      System.out.println("successful");
-//	        	      ApplicationModelOptional.setAppliedDate(app.getAppliedDate());
-//	        	      ApplicationModelOptional.setEducation(app.getEducation());
-//	        	      ApplicationModelOptional.setExperience(app.getExperience());
-//	        	      ApplicationModelOptional.setOtherInfo(app.getOtherInfo());
-//	     
+	        	      ApplicationModelOptional.setAppliedDate(app.getAppliedDate());
+	        	      ApplicationModelOptional.setEducation(app.getEducation());
+	        	      ApplicationModelOptional.setExperience(app.getExperience());
+	        	      ApplicationModelOptional.setOtherInfo(app.getOtherInfo());
 		 			 updatedApplication = this.apprepo.save(app);
-		 			return updatedApplication;
+		 			return app;
 	         }
 	       
 

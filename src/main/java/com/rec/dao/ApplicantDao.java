@@ -23,8 +23,7 @@ public class ApplicantDao {
 	@Autowired
 	Validation validation;
 	
-	
-//	 @Transactional
+
 	public ApplicantModel Save(ApplicantModel app) {
 		System.out.print("success"+ app);
 		return apprepo.save(app);
@@ -47,14 +46,14 @@ public class ApplicantDao {
 
         try {
 	        
-	          if( (validation.isLastName(app.getLastName())==true &&
-	        		  validation.isFirstName(app.getFirstName())==true)||
-	        		  (validation.isEmailId(app.getEmail())==true &&
-	        		   validation.isPhoneNo(app.getPhoneNo())==true)||
-	        		  validation.isSummary(app.getSummary())==true)
-	        		
-	        		  {
-	        	      System.out.println("successful");
+//	          if( (validation.isLastName(app.getLastName())==true &&
+//	        		  validation.isFirstName(app.getFirstName())==true)||
+//	        		  (validation.isEmailId(app.getEmail())==true &&
+//	        		   validation.isPhoneNo(app.getPhoneNo())==true)||
+//	        		  validation.isSummary(app.getSummary())==true)
+//	        		
+//	        		  {
+//	        	      System.out.println("successful");
 		 			ApplicantModelOptional.setFirstName(app.getFirstName());
 		 			ApplicantModelOptional.setLastName(app.getLastName());
 		 			ApplicantModelOptional.setEmail(app.getEmail());
@@ -63,16 +62,16 @@ public class ApplicantDao {
 		 			
 		 			
 		 			 updatedApplicant = this.apprepo.save(app);
-		 			return updatedApplicant;
+		 			return app;
 	         }
 	       
 
-         else
-         {
-       	 System.out.print("Insert data properly");
-        }
-        
-        }
+//         else
+//         {
+//       	 System.out.print("Insert data properly");
+//        }
+//        
+//        }
         catch(Exception e) {
         	System.out.print("Exception found");
         }

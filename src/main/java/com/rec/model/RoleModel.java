@@ -67,13 +67,13 @@ private Date CreatedAt;
 private Date UpdatedAt;
 
 
-@ManyToMany(cascade = CascadeType.ALL, mappedBy="roles")
+//@ManyToMany(cascade = CascadeType.ALL, mappedBy="roles")
 //@JoinTable(name = "users_roles",
 //joinColumns = @JoinColumn(name = "role_id",referencedColumnName = "id"),
 //inverseJoinColumns = @JoinColumn(name = "user_id",referencedColumnName = "id")
 //)
 //@JsonIgnore
-private List<UserModel> users=new ArrayList();
+//private List<UserModel> users=new ArrayList();
 
 
 public RoleModel() {
@@ -90,7 +90,7 @@ Title = title;
 Description = description;
 CreatedAt = createdAt;
 UpdatedAt = updatedAt;
-this.users = users;
+//this.users = users;
 }
 
 
@@ -145,13 +145,13 @@ public void setUpdatedAt(Date updatedAt) {
 UpdatedAt = updatedAt;
 }
 
-public List<UserModel> getUsers() {
-return users;
-}
-
-public void setUsers(List<UserModel> users) {
-this.users = users;
-}
+//public List<UserModel> getUsers() {
+//return users;
+//}
+//
+//public void setUsers(List<UserModel> users) {
+//this.users = users;
+//}
 
 
 

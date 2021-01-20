@@ -86,16 +86,16 @@ private Date UpdatedAt;
 private ContactModel contact;
 
 
-@ManyToMany( cascade = CascadeType.ALL)
-private List<RoleModel> roles=new ArrayList<>();
-
-public ContactModel getContact() {
-	return contact;
-}
-
-public void setContact(ContactModel contact) {
-	this.contact = contact;
-}
+//@ManyToMany( cascade = CascadeType.ALL)
+//private List<RoleModel> roles=new ArrayList<>();
+//
+//public ContactModel getContact() {
+//	return contact;
+//}
+//
+//public void setContact(ContactModel contact) {
+//	this.contact = contact;
+//}
 
 public UserModel() {
 super();
@@ -120,7 +120,7 @@ Adhar = adhar;
 Status = status;
 CreatedAt = createdAt;
 UpdatedAt = updatedAt;
-this.roles = roles;
+//this.roles = roles;
 }
 
 
@@ -200,12 +200,12 @@ public void setUpdatedAt(Date updatedAt) {
 UpdatedAt = updatedAt;
 }
 
-public List<RoleModel> getRoles() {
-return roles;
-}
-
-public void setRoles(List<RoleModel> roles) {
-this.roles = roles;
-}
+//public List<RoleModel> getRoles() {
+//return roles;
+//}
+//
+//public void setRoles(List<RoleModel> roles) {
+//this.roles = roles;
+//}
 
 }

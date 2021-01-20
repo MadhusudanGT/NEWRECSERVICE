@@ -37,31 +37,11 @@ public class JobDao {
          System.out.print("applicationmodeloptional"+ApplicationModelOptional);
         JobModel updatedJob;
 
-        try {
-	        
-//	          if( (validation.isDOB((CharSequence) app.getAppliedDate())==true &&
-//	        		  validation.isEducation(app.getEducation())==true)||
-//	        		  (validation.isExperience(app.getExperience())==true &&
-//	        		 validation.isOtherInfo(app.getOtherInfo())==true))
-//	        		
-//	        		  {
-//	        	      System.out.println("successful");
-//	        	      ApplicationModelOptional.setAppliedDate(app.getAppliedDate());
-//	        	      ApplicationModelOptional.setEducation(app.getEducation());
-//	        	      ApplicationModelOptional.setExperience(app.getExperience());
-//	        	      ApplicationModelOptional.setOtherInfo(app.getOtherInfo());
-//	     
+        try {  
 		 			 updatedJob = this.jobrepo.save(job);
-		 			return updatedJob;
+		 			return job;
 	         }
 	       
-
-//         else
-//         {
-//       	 System.out.print("Insert data properly");
-//        }
-        
-//        }
         catch(Exception e) {
         	System.out.print("Exception found");
         }

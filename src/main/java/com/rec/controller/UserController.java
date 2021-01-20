@@ -148,24 +148,18 @@ public class UserController {
 		return result;
 		}
 		else if(userval.isDate(keyword)) {
-		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
-		Timestamp fdt = new Timestamp ((df.parse(keyword)).getTime());
-		LocalDateTime currentdate=LocalDateTime.now();
-		System.out.print(fdt);
-		System.out.print(currentdate);
-		List<UserModel> result= userservice.finduserbydate(fdt,currentdate);
-		response= new ResponseEntity<UserModel>(status, HttpStatus.OK);
-		return result;
-
+			System.out.print("find by date"+keyword+"find by date");
+			List<UserModel> result= userservice.finduserbydate(new SimpleDateFormat("yyyy-MM-dd").parse(keyword));
+			response= new ResponseEntity<UserModel>(status, HttpStatus.OK);
+			return result;
 		}
 		else if(userval.isPhoneNo(keyword)) {
-		System.out.print("it is phone no"+keyword);
-		List<RoleModel> result=userservice.findbyphoneno(keyword);
-		response= new ResponseEntity<UserModel>(status, HttpStatus.OK);
-		System.out.print(result);
-		return null;
-		}
-
+			System.out.print("it is phone no"+keyword);
+			List<UserModel> result=userservice.findbyphoneno(keyword);
+			response= new ResponseEntity<UserModel>(status, HttpStatus.OK);
+			System.out.print(result);
+			return result;
+			}
 		else{
 		System.out.println("combination of string and number");
 		List<UserModel> result=userservice.findByEmail(keyword);

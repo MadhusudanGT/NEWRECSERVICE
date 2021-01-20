@@ -8,6 +8,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
@@ -20,8 +21,8 @@ import javax.validation.constraints.NotNull;
 public class JobModel {
    
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO, generator="REC")
-	@SequenceGenerator(name="REC", sequenceName="id_seqence")
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
+//	@SequenceGenerator(name="REC", sequenceName="id_seqence")
 	private Long Id;
 	
 	@NotNull
@@ -47,6 +48,42 @@ public class JobModel {
     
 	@OneToMany(targetEntity = ApplicationModel.class,mappedBy="jobs",cascade = {CascadeType.PERSIST, CascadeType.DETACH,CascadeType.MERGE,CascadeType.REFRESH})
 	private List<ApplicationModel> application1=new ArrayList<>();
+	
+
+//	@ManyToOne(fetch = FetchType.LAZY, optional = false,targetEntity = JobPlatform.class)
+//    @JoinColumn(foreignKey = @ForeignKey(name = "jobPlatformId"), name = "jobPlatformId")
+	@ManyToOne(cascade = CascadeType.ALL)
+    private JobPlatform jobPlatform;
+    
+public JobPlatform getJobPlatform() {
+		return jobPlatform;
+	}
+	public void setJobPlatform(JobPlatform jobPlatform) {
+		this.jobPlatform = jobPlatform;
+	}
+	public JobPosition getJobPosition() {
+		return jobPosition;
+	}
+	public void setJobPosition(JobPosition jobPosition) {
+		this.jobPosition = jobPosition;
+	}
+	public OrganizationModel getOrganization() {
+		return organization;
+	}
+	public void setOrganization(OrganizationModel organization) {
+		this.organization = organization;
+	}
+
+	//    @ManyToOne(fetch = FetchType.LAZY, optional = false,targetEntity = JobPosition.class)
+//    @JoinColumn(foreignKey = @ForeignKey(name = "jobPositionId"), name = "jobPositionId")
+	@ManyToOne(cascade = CascadeType.ALL)
+    private JobPosition jobPosition;
+    
+    
+//    @ManyToOne(fetch = FetchType.LAZY, optional = false,targetEntity = OrganizationModel.class)
+//    @JoinColumn(foreignKey = @ForeignKey(name = "organizationid"), name = "organizationid")
+	@ManyToOne(cascade = CascadeType.ALL)
+    private OrganizationModel organization;
 	public JobModel() {
 		super();
 		}

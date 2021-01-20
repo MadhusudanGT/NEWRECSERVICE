@@ -2,6 +2,7 @@ package com.rec.repository;
 
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -30,8 +31,8 @@ public List<UserModel> search(@Param("keyword")String keyword);
 @Query("select u from UserModel u where u.id=:i")
 public List<UserModel> searchnumbers(Long i);
 
-@Query("select cm from ContactModel cm where cm.PhoneNo1 like 'keyword%'")
-List<RoleModel> findbyphoneno(@Param("keyword")String keyword);
+@Query("select u from UserModel u join ContactModel cm on (u.id=cm.id) where cm.PhoneNo1=:keyword or cm.PhoneNo2=:keyword")
+List<UserModel> findbyphoneno(@Param("keyword")String keyword);
 
 //	@Query("select u from UserModel u where u.UpdatedAt<=:currentdate")
 //	public List<UserModel> finduserbydate(@Param("keyword")String currentdate);
@@ -46,7 +47,8 @@ public RoleModel findRoleID(Long id);
 @Query("select u from UserModel u where u.Email=:keyword")
 List<UserModel> findByEmailid(String keyword);
 
-
+@Query("select u from UserModel u where CreatedAt>=?1")
+List<UserModel> finduserbydate(@Param ("keyword") Date date);
 
 // @Query("select u from UserModel u where u.UpdatedAt<=:currentdate")
 // public List<UserModel> finduserbydate(@Param("keyword")String currentdate);
