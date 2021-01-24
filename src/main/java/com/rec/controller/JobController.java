@@ -1,13 +1,13 @@
 package com.rec.controller;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,66 +16,70 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+
 
 import com.rec.dao.JobDao;
 import com.rec.exception.ResourceNotFoundException;
-import com.rec.model.ApplicantModel;
-import com.rec.model.ApplicationModel;
 import com.rec.model.JobModel;
+import com.rec.model.JobPlatform;
+import com.rec.model.JobPosition;
+import com.rec.model.OrganizationModel;
+import com.rec.model.UserModel;
+import com.rec.repository.JobPlatformRepository;
+import com.rec.repository.JobPositionRepository;
 import com.rec.repository.JobRepository;
+import com.rec.repository.OrganizationRepository;
+import com.sun.el.stream.Optional;
+import org.springframework.http.ResponseEntity;
+
 @CrossOrigin 
 @RestController
-@RequestMapping("/jobc")
+@RequestMapping("/jb")
 public class JobController {
+
 	@Autowired
-    JobRepository jobrepo;
+	JobDao jobdao;
 	
 	@Autowired
-	JobDao jobservice;
-    
-
-	@GetMapping("/alljob")
-	public List<JobModel> getAll(){
-	return jobrepo.findAll();
-	}
-	
-	@GetMapping(path="/alljob/{JobId}" , produces="application/json")
-	public ResponseEntity<JobModel> getById(@PathVariable(value="JobId") long JobId) throws ResourceNotFoundException {
-
-
-
-	return jobservice.getJobById(JobId);
-	} 
+	JobPlatformRepository platformrepo;
+	@Autowired
+	JobPositionRepository positionrepo;
+	@Autowired
+	OrganizationRepository orgrepo;
+	@Autowired
+	JobRepository jobrepo;
 	
 	@PostMapping(path="/create",consumes = "application/json", produces = "application/json")
-	public ResponseEntity<JobModel> createJob(@RequestBody JobModel job) {
-
-	ResponseEntity<JobModel> response =null;
-	JobModel status = null;
-    
-
-	try {
-	status =jobservice.Save(job);
-	response= new ResponseEntity<JobModel>(status, HttpStatus.OK);
-	}
-	catch(Exception e) {
-	response = new ResponseEntity<JobModel>(status,HttpStatus.BAD_REQUEST);
-
-	}
-
-	return response;
+	public JobModel createuser(@RequestBody JobModel employee) {
+	 System.out.print("job json object"+employee);
+		     JobModel emp = jobdao.addEmployee(employee);
+		        return emp;
+		    
+		}
+	
+	@GetMapping(path="/getall")
+	public ResponseEntity<List<JobModel>> getAllEmployees() {
+		 
+        List<JobModel> employees = jobdao.getAllEmployees();
+        return new ResponseEntity<>(employees, HttpStatus.OK);
+    }
+	
+	@PutMapping(path="/update/{id}",consumes = "application/json", produces = "application/json")
+	public JobModel updateuser(@PathVariable(value = "id") Long id,@RequestBody JobModel emp) throws ResourceNotFoundException {
+		jobdao.updateemp(id,emp);
+		return emp;
 	}
 	
-	@PutMapping("/update/{id}")
-	public JobModel updateJob(@PathVariable(value="id") Long id,@Valid @RequestBody JobModel job) throws ResourceNotFoundException {
-	System.out.println(id+" "+job);
-	return jobservice.updatejob(id,job);
+	@GetMapping("/users/{id}")
+	public ResponseEntity<JobModel> getUserById(@PathVariable(value = "id") Long uid) throws ResourceNotFoundException{
+			return jobdao.finduserbyid(uid);
+	}
 	
+	@DeleteMapping("/users/{id}")
+	public Map<String, Boolean> deleteUser(@PathVariable(value = "id") Long uid) throws ResourceNotFoundException{
+			return jobdao.deleteuser(uid);
+	}
 
-	}
-	@DeleteMapping("/deletejob/{id}")
-	public Map<String, Boolean> deleteJob(@PathVariable(value = "id") Long jobid) throws ResourceNotFoundException{
-			return jobservice.deletejob(jobid);
-	}
 }
