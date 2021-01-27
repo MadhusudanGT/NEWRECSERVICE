@@ -1,7 +1,10 @@
 package com.rec.model;import java.util.ArrayList;  
 
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -90,14 +93,19 @@ public class UserModel {
 
 
 //		 @ManyToMany(targetEntity = RoleModel.class, cascade = {CascadeType.PERSIST, CascadeType.DETACH,CascadeType.MERGE,CascadeType.REFRESH} )
-		 @ManyToMany(targetEntity = RoleModel.class, cascade = {CascadeType.MERGE})
-		    @JoinTable(
-		            name="users_roles",
-		            joinColumns=
-		            @JoinColumn( name="user_id", referencedColumnName="id"),
-		            inverseJoinColumns=@JoinColumn(name="role_id", referencedColumnName="id"))
-		private List<RoleModel> roles=new ArrayList<RoleModel>();
+//		 @ManyToMany(targetEntity = RoleModel.class, cascade = {CascadeType.MERGE})
+//		    @JoinTable(
+//		            name="users_roles",
+//		            joinColumns=
+//		            @JoinColumn( name="user_id", referencedColumnName="id"),
+//		            inverseJoinColumns=@JoinColumn(name="role_id", referencedColumnName="id"))
+//		private List<RoleModel> roles=new ArrayList<RoleModel>();
 
+		    @ManyToMany
+		    @JoinTable(name="users_roles",
+		           joinColumns = { @JoinColumn(name="user_id", referencedColumnName="id") },
+		           inverseJoinColumns = { @JoinColumn(name = "role_id", referencedColumnName="id") })
+		    private Set<RoleModel> role = new HashSet<RoleModel>();
 
 		public Long getId() {
 			return id;
@@ -199,15 +207,6 @@ public class UserModel {
 		}
 
 
-		public List<RoleModel> getRoles() {
-			return roles;
-		}
-
-
-		public void setRoles(List<RoleModel> roles) {
-			this.roles = roles;
-		}
-
 
 		public UserModel() {
 			super();
@@ -215,7 +214,25 @@ public class UserModel {
 		}
 
 
-	
+
+
+
+		public Set<RoleModel> getRole() {
+			return role;
+		}
+
+
+		public void setRole(Set<RoleModel> role) {
+			this.role = role;
+		}
+
+
+		@Override
+		public String toString() {
+			return "UserModel [id=" + id + ", firstName=" + firstName + ", lastName=" + lastName + ", email=" + email
+					+ ", DOB=" + DOB + ", adhar=" + adhar + ", status=" + status + ", createdAt=" + createdAt
+					+ ", updatedAt=" + updatedAt + ", contact=" + contact + ", role=" + role + "]";
+		}
 
 
 		public UserModel(@Pattern(regexp = "^-?\\d{1,19}$") @Size(min = 1, max = 30) Long id,
@@ -225,7 +242,7 @@ public class UserModel {
 				@NotNull(message = "DOB cannot be null") @Pattern(regexp = "dd-mm-yyyy", message = "DOB is invalid") @Past Date dOB,
 				@Min(12) @Pattern(regexp = "^-?\\d{1,19}$", message = "Adhar is invalid") String adhar,
 				@Size(min = 10, max = 30) @Pattern(regexp = "/^[A-Za-z]+$/") String status, Date createdAt,
-				Date updatedAt, ContactModel contact, List<RoleModel> roles) {
+				Date updatedAt, ContactModel contact, Set<UserModel> products) {
 			super();
 			this.id = id;
 			this.firstName = firstName;
@@ -237,18 +254,7 @@ public class UserModel {
 			this.createdAt = createdAt;
 			this.updatedAt = updatedAt;
 			this.contact = contact;
-			this.roles = roles;
+			this.role = role;
 		}
-
-
-		@Override
-		public String toString() {
-			return "UserModel [id=" + id + ", firstName=" + firstName + ", lastName=" + lastName + ", email=" + email
-					+ ", DOB=" + DOB + ", adhar=" + adhar + ", status=" + status + ", CreatedAt=" + createdAt
-					+ ", UpdatedAt=" + updatedAt + ", contact=" + contact + ", roles=" + roles + "]";
-		}
-
-			
-		
 
 }

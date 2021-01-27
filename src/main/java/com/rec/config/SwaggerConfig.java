@@ -25,6 +25,6 @@ public class SwaggerConfig {
 	private ApiInfo apiInfo() {
 		return new ApiInfoBuilder().title("REC Project")
 				.description("REC SERVICE CODE")
-				.termsOfServiceUrl("http://javainuse.com").version("1.0").build();
+				.termsOfServiceUrl("http://technicalgt.wordpress.com").version("11").build();
 	}
 }

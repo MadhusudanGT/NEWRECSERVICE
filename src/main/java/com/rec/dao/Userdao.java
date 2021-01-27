@@ -11,6 +11,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.Set;
 
 import javax.transaction.Transactional;
 import javax.validation.Valid;
@@ -173,11 +174,11 @@ public class Userdao implements UserService {
 			user.setContact(contact);
 
 			user.setCreatedAt(new Date());
-			List<RoleModel> role=model.getRoles();
+			Set<RoleModel> role=model.getRole();
 
 			System.out.println("Role title===="+role.toString());
 
-			user.setRoles(role);
+			user.setRole(role);
 
 			try {
 

@@ -6,6 +6,7 @@ import java.util.Collection;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 
@@ -74,7 +75,8 @@ private Date UpdatedAt;
 //)
 //@JsonIgnore
 //private List<UserModel> users=new ArrayList();
-
+@ManyToMany(mappedBy="role")
+private Set<UserModel> stores = new HashSet<UserModel>();
 
 public RoleModel() {
 super();

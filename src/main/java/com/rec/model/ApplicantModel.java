@@ -43,7 +43,7 @@ public class ApplicantModel {
    
 
 	@NotNull
-	private String Summary;
+	private String summary;
 	
 	@OneToMany(targetEntity = ApplicationModel.class, mappedBy="applicant",cascade = {CascadeType.PERSIST, CascadeType.DETACH,CascadeType.MERGE,CascadeType.REFRESH})
 	private List<ApplicationModel> application1=new ArrayList<>();
@@ -55,11 +55,11 @@ public class ApplicantModel {
 		this.application1 = application1;
 	}
 	public String getSummary() {
-		return Summary;
+		return summary;
 	}
 	
 	public void setSummary(String summary) {
-		Summary = summary;
+		summary = summary;
 	}
 	
 
@@ -86,7 +86,7 @@ public class ApplicantModel {
 		LastName = lastName;
 		Email = email;
 		PhoneNo = phoneNo;
-		Summary = summary;
+		summary = summary;
 		this.application1 = application1;
 		this.application1 = application;
 	}
