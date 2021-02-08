@@ -1,8 +1,7 @@
 package com.rec.controller;
-import java.util.List;
-import java.util.Map;
 
-import javax.validation.Valid;
+import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -16,61 +15,73 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
 import com.rec.dao.ApplicationDao;
 import com.rec.exception.ResourceNotFoundException;
-import com.rec.model.ApplicantModel;
+import com.rec.model.ApplicationEvaluation;
 import com.rec.model.ApplicationModel;
 import com.rec.repository.ApplicationRepository;
 
-@CrossOrigin 
+
+@CrossOrigin
 @RestController
 @RequestMapping("/appc")
 public class ApplicationController {
-	@Autowired
-	ApplicationDao applicationservice;
+@Autowired
+private ApplicationDao applicationdao;
 
-	@Autowired
-    ApplicationRepository apprepo;
-	
-	@GetMapping("/allapplication")
-	public List<ApplicationModel> getAll(){
-	return apprepo.findAll();
-	}
-	
-	@GetMapping(path="/allapplication/{ApplicationId}" , produces="application/json")
-	public ResponseEntity<ApplicationModel> getById(@PathVariable(value="ApplicationId") long ApplicationId) throws ResourceNotFoundException {
+@Autowired
+private ApplicationRepository applicationrepo;
 
-	return applicationservice.getApplicationById(ApplicationId);
-	} 
-	
-	
-	@PostMapping(path="/create",consumes = "application/json", produces = "application/json")
-	public ResponseEntity<ApplicationModel> createApplication(@RequestBody ApplicationModel app) {
+@PostMapping(path="/create",consumes = "application/json", produces = "application/json")
+public ResponseEntity<ApplicationModel> createuser(@RequestBody ApplicationModel data) {
 
-	ResponseEntity<ApplicationModel> response =null;
-	ApplicationModel status = null;
-    
+ResponseEntity<ApplicationModel> response =null;
+ApplicationModel status = null;
 
-	try {
-	status =applicationservice.Save(app);
-	response= new ResponseEntity<ApplicationModel>(status, HttpStatus.OK);
-	}
-	catch(Exception e) {
-	response = new ResponseEntity<ApplicationModel>(status,HttpStatus.BAD_REQUEST);
 
-	}
-	return response;
-	}
+try {
+status =applicationdao.Save(data);
+response= new ResponseEntity<ApplicationModel>(status, HttpStatus.OK);
+}
+catch(Exception e) {
+response = new ResponseEntity<ApplicationModel>(status,HttpStatus.BAD_REQUEST);
+
+	ResponseEntity<ApplicationModel> response1 =null;
+	ApplicationModel status1 = null;
+	 try {
+		 status1 =applicationdao.Save(data);
+		 response1= new ResponseEntity<ApplicationModel>(status1, HttpStatus.OK);
+	 }
+	 catch(Exception e1) {
+		 response1 = new ResponseEntity<ApplicationModel>(status1,HttpStatus.BAD_REQUEST);
+	 }
 	
-	@PutMapping("/update/{id}")
-	public ApplicationModel updateapplication(@PathVariable(value="id") Long id,@Valid @RequestBody ApplicationModel app) throws ResourceNotFoundException {
-	System.out.println(id+" "+app);
-	return applicationservice.updateapplication(id,app);
-	
+	 return  response1;
 
-	}
-	@DeleteMapping("/deleteapplication/{id}")
-	public Map<String, Boolean> deleteApplication(@PathVariable(value = "id") Long appid) throws ResourceNotFoundException{
-			return applicationservice.deleteapplication(appid);
-	}
+}
+return response;
+}
+
+
+@DeleteMapping("/deleteapplication/{id}")
+public ResponseEntity<Object> deleteRole(@PathVariable Long id) {
+    return applicationdao.deleteRole(id);
+}
+
+
+@GetMapping("/allapplication/{ApplicationId}")
+public ApplicationModel getEvaluationById(@PathVariable(value = "id") Long id) throws ResourceNotFoundException{
+	if(applicationrepo.findById(id).isPresent())
+	    return applicationrepo.findById(id).get();
+	else return null;
+}
+@GetMapping("/allapplication")
+public List<ApplicationModel> getRoles() {
+    return applicationrepo.findAll();
+}
+@PutMapping("/update/{id}")
+public ResponseEntity<Object> updateRole(@PathVariable Long id, @RequestBody ApplicationModel role) {
+    return applicationdao.updateRole(id, role);
+}
 }

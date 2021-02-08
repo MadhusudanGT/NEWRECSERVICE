@@ -7,6 +7,5 @@ import com.rec.model.JobPlatform;
 @Repository
 public interface JobPlatformRepository extends JpaRepository<JobPlatform, Long> {
 
-//	public JobPlatform findByfirstName(String platformName);
 
 }

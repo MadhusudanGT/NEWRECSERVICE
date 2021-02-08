@@ -1,10 +1,13 @@
-package com.rec.model;import java.util.ArrayList;  
+package com.rec.model;
 
+import java.util.Collection;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
-
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+import java.sql.Timestamp;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -25,6 +28,8 @@ import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Past;
 
+import javax.persistence.ManyToMany;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -93,19 +98,14 @@ public class UserModel {
 
 
 //		 @ManyToMany(targetEntity = RoleModel.class, cascade = {CascadeType.PERSIST, CascadeType.DETACH,CascadeType.MERGE,CascadeType.REFRESH} )
-//		 @ManyToMany(targetEntity = RoleModel.class, cascade = {CascadeType.MERGE})
-//		    @JoinTable(
-//		            name="users_roles",
-//		            joinColumns=
-//		            @JoinColumn( name="user_id", referencedColumnName="id"),
-//		            inverseJoinColumns=@JoinColumn(name="role_id", referencedColumnName="id"))
-//		private List<RoleModel> roles=new ArrayList<RoleModel>();
+		 @ManyToMany(targetEntity = RoleModel.class, cascade = {CascadeType.MERGE})
+		    @JoinTable(
+		            name="users_roles",
+		            joinColumns=
+		            @JoinColumn( name="user_id", referencedColumnName="id"),
+		            inverseJoinColumns=@JoinColumn(name="role_id", referencedColumnName="id"))
+		private List<RoleModel> roles=new ArrayList<RoleModel>();
 
-		    @ManyToMany
-		    @JoinTable(name="users_roles",
-		           joinColumns = { @JoinColumn(name="user_id", referencedColumnName="id") },
-		           inverseJoinColumns = { @JoinColumn(name = "role_id", referencedColumnName="id") })
-		    private Set<RoleModel> role = new HashSet<RoleModel>();
 
 		public Long getId() {
 			return id;
@@ -207,6 +207,15 @@ public class UserModel {
 		}
 
 
+		public List<RoleModel> getRoles() {
+			return roles;
+		}
+
+
+		public void setRoles(List<RoleModel> roles) {
+			this.roles = roles;
+		}
+
 
 		public UserModel() {
 			super();
@@ -214,47 +223,37 @@ public class UserModel {
 		}
 
 
-
-
-
-		public Set<RoleModel> getRole() {
-			return role;
-		}
-
-
-		public void setRole(Set<RoleModel> role) {
-			this.role = role;
+		public UserModel(@Pattern(regexp = "^-?\\d{1,19}$") @Size(min = 1, max = 30) Long id,
+				@NotNull(message = "First name can not be null") @Size(min = 3, max = 30) @Pattern(regexp = "/^[A-Za-z]+$/") String firstName,
+				@NotNull(message = "Last name can not be null") @Size(min = 3, max = 30) @Pattern(regexp = "/^[A-Za-z]+$/") String lastName,
+				@NotNull(message = "Email can not be null") @Pattern(regexp = "^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+$s", message = "Email is invalid") @Size(min = 10, max = 30) String email,
+				@NotNull(message = "DOB cannot be null") @Pattern(regexp = "dd-mm-yyyy", message = "DOB is invalid") @Past Date DOB,
+				@Min(12) @Pattern(regexp = "^-?\\d{1,19}$", message = "Adhar is invalid") String adhar,
+				@Size(min = 10, max = 30) @Pattern(regexp = "/^[A-Za-z]+$/") String status, Date createdAt,
+				Date updatedAt, ContactModel contact, List<RoleModel> roles) {
+			super();
+			this.id = id;
+			this.firstName = firstName;
+			this.lastName = lastName;
+			this.email = email;
+			this.DOB = DOB;
+			this.adhar = adhar;
+			this.status = status;
+			this.createdAt = createdAt;
+			this.updatedAt = updatedAt;
+			this.contact = contact;
+			this.roles = roles;
 		}
 
 
 		@Override
 		public String toString() {
 			return "UserModel [id=" + id + ", firstName=" + firstName + ", lastName=" + lastName + ", email=" + email
-					+ ", DOB=" + DOB + ", adhar=" + adhar + ", status=" + status + ", createdAt=" + createdAt
-					+ ", updatedAt=" + updatedAt + ", contact=" + contact + ", role=" + role + "]";
+					+ ", DOB=" + DOB + ", adhar=" + adhar + ", status=" + status + ", CreatedAt=" + createdAt
+					+ ", UpdatedAt=" + updatedAt + ", contact=" + contact + ", roles=" + roles + "]";
 		}
 
-
-		public UserModel(@Pattern(regexp = "^-?\\d{1,19}$") @Size(min = 1, max = 30) Long id,
-				@NotNull(message = "First name can not be null") @Size(min = 3, max = 30) @Pattern(regexp = "/^[A-Za-z]+$/") String firstName,
-				@NotNull(message = "Last name can not be null") @Size(min = 3, max = 30) @Pattern(regexp = "/^[A-Za-z]+$/") String lastName,
-				@NotNull(message = "Email can not be null") @Pattern(regexp = "^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+$s", message = "Email is invalid") @Size(min = 10, max = 30) String email,
-				@NotNull(message = "DOB cannot be null") @Pattern(regexp = "dd-mm-yyyy", message = "DOB is invalid") @Past Date dOB,
-				@Min(12) @Pattern(regexp = "^-?\\d{1,19}$", message = "Adhar is invalid") String adhar,
-				@Size(min = 10, max = 30) @Pattern(regexp = "/^[A-Za-z]+$/") String status, Date createdAt,
-				Date updatedAt, ContactModel contact, Set<UserModel> products) {
-			super();
-			this.id = id;
-			this.firstName = firstName;
-			this.lastName = lastName;
-			this.email = email;
-			DOB = dOB;
-			this.adhar = adhar;
-			this.status = status;
-			this.createdAt = createdAt;
-			this.updatedAt = updatedAt;
-			this.contact = contact;
-			this.role = role;
-		}
+			
+		
 
 }

@@ -1,12 +1,11 @@
 package com.rec.model;
 
-import java.util.ArrayList;
+import java.util.ArrayList;  
 
 import java.util.Collection;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 import javax.persistence.CascadeType;
 
@@ -30,131 +29,143 @@ import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
+
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+
 import javax.persistence.JoinColumn;
 
 
 @Entity
-@Table(name="Role")
+@Table(name="role")
+@JsonIdentityInfo(
+        generator = ObjectIdGenerators.PropertyGenerator.class,
+        property = "id")
 public class RoleModel {
 
-
-@Id
-@GeneratedValue(strategy=GenerationType.IDENTITY)
-@Pattern(regexp="^-?\\d{1,19}$")
-@Size(min=1,max=30)
-private Long Id;
-
-
-@NotNull(message="Title can not be null")
-@Column(name="Title")
-@Size(min=3,max=50)
-@Pattern(regexp="/^[A-Za-z]+$/")
-private String Title;
-
-@Column(name="Description")
-@Size(min=3,max=80)
-@Pattern(regexp="/^[A-Za-z]+$/")
-private String Description;
-
-@Temporal(value=TemporalType.TIMESTAMP)
-@CreatedDate
-@Column
-private Date CreatedAt;
-
-@Temporal(value=TemporalType.TIMESTAMP)
-@LastModifiedDate
-@Column
-private Date UpdatedAt;
-
-
-//@ManyToMany(cascade = CascadeType.ALL, mappedBy="roles")
-//@JoinTable(name = "users_roles",
-//joinColumns = @JoinColumn(name = "role_id",referencedColumnName = "id"),
-//inverseJoinColumns = @JoinColumn(name = "user_id",referencedColumnName = "id")
-//)
-//@JsonIgnore
-//private List<UserModel> users=new ArrayList();
-@ManyToMany(mappedBy="role")
-private Set<UserModel> stores = new HashSet<UserModel>();
-
-public RoleModel() {
-super();
-}
-
-public RoleModel(@Pattern(regexp = "^-?\\d{1,19}$") @Size(min = 1, max = 30) Long id,
-@NotNull(message = "Title can not be null") @Size(min = 3, max = 50) @Pattern(regexp = "/^[A-Za-z]+$/") String title,
-@Size(min = 3, max = 80) @Pattern(regexp = "/^[A-Za-z]+$/") String description, Date createdAt,
-Date updatedAt, List<UserModel> users) {
-super();
-Id = id;
-Title = title;
-Description = description;
-CreatedAt = createdAt;
-UpdatedAt = updatedAt;
-//this.users = users;
-}
+			
+			@Id
+			@GeneratedValue(strategy=GenerationType.IDENTITY)
+//			@Pattern(regexp="^-?\\d{1,19}$")
+//			@Size(min=1,max=30)
+			private Long id;
+			
+			
+			@NotNull(message="Title can not be null")
+			@Column
+			@Size(min=3,max=50)
+			@Pattern(regexp="/^[A-Za-z]+$/")
+			private String title;
+			
+			@Column
+			@Size(min=3,max=80)
+			@Pattern(regexp="/^[A-Za-z]+$/")
+			private String description;
+			
+			@Temporal(value=TemporalType.TIMESTAMP)
+			@CreatedDate
+			@Column
+			private Date createdAt;
+			
+			@Temporal(value=TemporalType.TIMESTAMP)
+			@LastModifiedDate
+			@Column
+			private Date updatedAt;
+			
+			
+			@ManyToMany(targetEntity = UserModel.class, mappedBy = "roles",  cascade = CascadeType.MERGE)
+			private List<UserModel> users = new ArrayList<UserModel>();
 
 
+			public Long getId() {
+				return id;
+			}	
 
 
-public Long getId() {
-return Id;
-}
+			public void setId(Long id) {
+				this.id = id;
+			}
 
 
-public void setId(Long id) {
-Id = id;
-}
+			public String getTitle() {
+				return title;
+			}
 
 
-public String getTitle() {
-return Title;
-}
+			public void setTitle(String title) {
+				this.title = title;
+			}
 
 
-public void setTitle(String title) {
-Title = title;
-}
+			public String getDescription() {
+				return description;
+			}
 
 
-public String getDescription() {
-return Description;
-}
+			public void setDescription(String description) {
+				this.description = description;
+			}
 
 
-public void setDescription(String description) {
-Description = description;
-}
+			public Date getCreatedAt() {
+				return createdAt;
+			}
 
 
-public Date getCreatedAt() {
-return CreatedAt;
-}
+			public void setCreatedAt(Date createdAt) {
+				this.createdAt = createdAt;
+			}
 
 
-public void setCreatedAt(Date createdAt) {
-CreatedAt = createdAt;
-}
+			public Date getUpdatedAt() {
+				return updatedAt;
+			}
 
 
-public Date getUpdatedAt() {
-return UpdatedAt;
-}
+			public void setUpdatedAt(Date updatedAt) {
+				this.updatedAt = updatedAt;
+			}
 
 
-public void setUpdatedAt(Date updatedAt) {
-UpdatedAt = updatedAt;
-}
+			public List<UserModel> getUsers() {
+				return users;
+			}
 
-//public List<UserModel> getUsers() {
-//return users;
-//}
-//
-//public void setUsers(List<UserModel> users) {
-//this.users = users;
-//}
 
+			public void setUsers(List<UserModel> users) {
+				this.users = users;
+			}
+
+
+			public RoleModel() {
+				super();
+				// TODO Auto-generated constructor stub
+			}
+
+
+			public RoleModel(@Pattern(regexp = "^-?\\d{1,19}$") @Size(min = 1, max = 30) Long id,
+					@NotNull(message = "Title can not be null") @Size(min = 3, max = 50) @Pattern(regexp = "/^[A-Za-z]+$/") String title,
+					@Size(min = 3, max = 80) @Pattern(regexp = "/^[A-Za-z]+$/") String description, Date createdAt,
+					Date updatedAt, List<UserModel> users) {
+				super();
+				this.id = id;
+				this.title = title;
+				this.description = description;
+				this.createdAt = createdAt;
+				this.updatedAt = updatedAt;
+				this.users = users;
+			}
+
+
+			@Override
+			public String toString() {
+				return "RoleModel [id=" + id + ", title=" + title + ", description=" + description + ", createdAt="
+						+ createdAt + ", updatedAt=" + updatedAt + ", users=" + users + "]";
+			}
+
+
+		
 
 
 }

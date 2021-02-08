@@ -53,39 +53,39 @@ import com.rec.repository.UserRepository;
 
 
 public class RoleController {
-@Autowired
-Roledao roleservice;
+	@Autowired
+	Roledao roleservice;
+	
+	@Autowired
+	RoleRepository rolerepo;
+	
+	@GetMapping("/roles")
+	public List<RoleModel> allRoles(){
+	return roleservice.getAllRoles();
+	}
+	
+	@GetMapping("/role/{id}")
+	public Optional<RoleModel> getRole(@PathVariable(value = "id") Long id){
+	return this.roleservice.getRole(id);
+	}
+	
+	
+	@PostMapping("/role")
+	public ResponseEntity<Object> saveRole(@Valid @RequestBody RoleModel data) {
+	return roleservice.addRole(data);
+	}
+	
+	@PutMapping("/role/{id}")
+	public RoleModel updateRole(@Valid @RequestBody RoleModel data,@PathVariable(value = "id") Long id) throws ResourceNotFoundException {
+	return this.roleservice.updateRole(id, data);
+	}
+	
+	
+	@DeleteMapping("/role/{id}")
+	public Map<String, Boolean> deleteRole(@PathVariable(value="id") Long id) throws ResourceNotFoundException{
+	return this.roleservice.deleteRole(id);
+	}
 
-@Autowired
-RoleRepository rolerepo;
-
-@GetMapping("/roles")
-public List<RoleModel> allRoles(){
-return roleservice.getAllRoles();
-}
-
-@GetMapping("/role/{id}")
-public Optional<RoleModel> getRole(@PathVariable(value = "id") Long id){
-return this.roleservice.getRole(id);
-}
-
-
-@PostMapping("/role")
-public RoleModel addRole(@Valid @RequestBody RoleModel data) {
-return this.roleservice.saveRole(data);
-}
-
-@PutMapping("/role/{id}")
-public RoleModel updateRole(@Valid @RequestBody RoleModel data,@PathVariable(value = "id") Long id) throws ResourceNotFoundException {
-return this.roleservice.updateRole(id, data);
-}
-
-
-@DeleteMapping("/role/{id}")
-public Map<String, Boolean> deleteRole(@PathVariable(value="id") Long id) throws ResourceNotFoundException{
-return this.roleservice.deleteRole(id);
-}
-
-
+	
 
 }

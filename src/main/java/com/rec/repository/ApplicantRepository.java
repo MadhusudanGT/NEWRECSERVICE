@@ -1,13 +1,10 @@
 package com.rec.repository;
 
-import java.util.Optional;
-
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
 import com.rec.model.ApplicantModel;
-import com.rec.model.UserModel;
+@Repository
+public interface ApplicantRepository extends JpaRepository<ApplicantModel, Long> {
 
-
-public interface ApplicantRepository extends JpaRepository<ApplicantModel,Long> {
-	Optional<ApplicantModel> findById(Long id);
 }

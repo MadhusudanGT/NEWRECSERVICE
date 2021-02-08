@@ -16,11 +16,11 @@ import com.rec.model.UserModel;
 
 public interface UserService {
 	UserModel updateuser(Long id,UserModel data) throws ResourceNotFoundException;
-	UserModel addUser(UserModel usermodel);
-	 Map<String, Boolean> deleteuser(Long id) throws ResourceNotFoundException;
+	 ResponseEntity<Object> createUser(UserModel model);
+Map<String, Boolean> deleteuser(Long id) throws ResourceNotFoundException;
 	
 	List<UserModel> search(String keyword);
-	ResponseEntity<Object> createUser(UserModel model);
+//	UserModel updateuser(UserModel data) throws ResourceNotFoundException;
 	
 
 }

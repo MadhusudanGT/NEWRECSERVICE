@@ -1,133 +1,138 @@
 package com.rec.model;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
-import java.util.Set;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
-import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
-import javax.validation.constraints.NotNull;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
-@Table(name="applicant")
+@Table(name="applicantModel")
 public class ApplicantModel {
+
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-//	@SequenceGenerator(name="REC", sequenceName="id_seqence")
 	private Long Id;
 	
-    
-	@NotNull
+	@Column(name="FirstName")
 	private String FirstName;
-
-	@NotNull
+	
+	@Column(name="LastName")
 	private String LastName;
 	
-	
-	@NotNull
+	@Column(name="Email")
 	private String Email;
 	
-	@NotNull
+	@Column(name="PhoneNo")
 	private String PhoneNo;
-   
+	
+	@Column(name="Summary")
+	private String Summary;
+	
+    
+	@OneToMany(targetEntity = ApplicationModel.class,mappedBy = "applicantmodel", cascade = {CascadeType.ALL})
+	 @JsonIgnore
+	    private List<ApplicationModel> applicationmodel=new ArrayList<>();
 
-	@NotNull
-	private String summary;
-	
-	@OneToMany(targetEntity = ApplicationModel.class, mappedBy="applicant",cascade = {CascadeType.PERSIST, CascadeType.DETACH,CascadeType.MERGE,CascadeType.REFRESH})
-	private List<ApplicationModel> application1=new ArrayList<>();
-	
-	public List<ApplicationModel> getApplication1() {
-		return application1;
+
+	public Long getId() {
+		return Id;
 	}
-	public void setApplication1(List<ApplicationModel> application1) {
-		this.application1 = application1;
+
+
+	public void setId(Long id) {
+		Id = id;
 	}
+
+
+	public String getFirstName() {
+		return FirstName;
+	}
+
+
+	public void setFirstName(String firstName) {
+		FirstName = firstName;
+	}
+
+
+	public String getLastName() {
+		return LastName;
+	}
+
+
+	public void setLastName(String lastName) {
+		LastName = lastName;
+	}
+
+
+	public String getEmail() {
+		return Email;
+	}
+
+
+	public void setEmail(String email) {
+		Email = email;
+	}
+
+
+	public String getPhoneNo() {
+		return PhoneNo;
+	}
+
+
+	public void setPhoneNo(String phoneNo) {
+		PhoneNo = phoneNo;
+	}
+
+
 	public String getSummary() {
-		return summary;
+		return Summary;
 	}
-	
+
+
 	public void setSummary(String summary) {
-		summary = summary;
+		Summary = summary;
 	}
-	
-
-	@OneToMany(targetEntity = ApplicationDocumentModel.class,cascade = {CascadeType.PERSIST, CascadeType.DETACH,CascadeType.MERGE,CascadeType.REFRESH})
-	private List<ApplicationModel> application=new ArrayList<>();
 
 
-	public List<ApplicationModel> getApplication() {
-		return application1;
+	public List<ApplicationModel> getApplicationmodel() {
+		return applicationmodel;
 	}
-	public void setApplication(List<ApplicationModel> application) {
-		this.application1 = application;
+
+
+	public void setApplicationmodel(List<ApplicationModel> applicationmodel) {
+		this.applicationmodel = applicationmodel;
 	}
+
 	public ApplicantModel() {
-	super();
+		super();
 	}
-	
-	public ApplicantModel(Long id, @NotNull String firstName, @NotNull String lastName, @NotNull String email,
-			@NotNull String phoneNo, @NotNull String summary, List<ApplicationModel> application1,
-			List<ApplicationModel> application) {
+	@Override
+	public String toString() {
+		return "ApplicantModel [Id=" + Id + ", FirstName=" + FirstName + ", LastName=" + LastName + ", Email=" + Email
+				+ ", PhoneNo=" + PhoneNo + ", Summary=" + Summary + ", applicationmodel=" + applicationmodel + "]";
+	}
+
+
+	public ApplicantModel(Long id, String firstName, String lastName, String email, String phoneNo, String summary,
+			List<ApplicationModel> applicationmodel) {
 		super();
 		Id = id;
 		FirstName = firstName;
 		LastName = lastName;
 		Email = email;
 		PhoneNo = phoneNo;
-		summary = summary;
-		this.application1 = application1;
-		this.application1 = application;
+		Summary = summary;
+		this.applicationmodel = applicationmodel;
 	}
-	public Long getId() {
-		return Id;
-	}
-
-	public void setId(Long id) {
-		Id = id;
-	}
-
-	public String getFirstName() {
-		return FirstName;
-	}
-
-	public void setFirstName(String firstName) {
-		FirstName = firstName;
-	}
-
-	public String getLastName() {
-		return LastName;
-	}
-
-	public void setLastName(String lastName) {
-		LastName = lastName;
-	}
-
-	public String getEmail() {
-		return Email;
-	}
-
-	public void setEmail(String email) {
-		Email = email;
-	}
-
-	public String getPhoneNo() {
-		return PhoneNo;
-	}
-
-	public void setPhoneNo(String phoneNo) {
-		PhoneNo = phoneNo;
-	}
+	
 	
 }

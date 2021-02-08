@@ -11,7 +11,6 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
-import java.util.Set;
 
 import javax.transaction.Transactional;
 import javax.validation.Valid;
@@ -29,24 +28,23 @@ import com.rec.exception.ResourceNotFoundException;
 import com.rec.model.ContactModel;
 import com.rec.model.RoleModel;
 import com.rec.model.UserModel;
-import com.rec.repository.ContactRepo;
 import com.rec.repository.RoleRepository;
 import com.rec.repository.UserRepository;
 import com.rec.util.UserValidation;
-import com.rec.util.Validation;
 
 @Service
 public class Userdao implements UserService {
+	
 	@Autowired
 	UserRepository repo;
+	
+	@Autowired
+	RoleRepository roleRepository;
+	
 	@Autowired
 	UserValidation uservalidation;
 
-//	public UserModel Save(UserModel user) {
-//		System.out.print("success"+ user);
-//		
-//		return repo.save(user);
-//	}
+	
 	@Override
 	public UserModel updateuser(Long id, UserModel data) throws ResourceNotFoundException {
 		UserModel UserModelOptional = repo.findById(id)
@@ -88,6 +86,7 @@ public class Userdao implements UserService {
     	
 	}
 		
+		
 		public ResponseEntity<UserModel> getUserById(Long uid) throws ResourceNotFoundException{
 		UserModel status=repo.findById(uid).orElseThrow(() -> new ResourceNotFoundException("user not found"));
 		
@@ -101,7 +100,7 @@ public class Userdao implements UserService {
 
 			public UserModel addUser(@Valid UserModel user) {
 			System.out.print("success"+ user);
-//			user.getRoles().addAll(user.getRoles());
+			user.getRoles().addAll(user.getRoles());
 			return this.repo.save(user);
 
 
@@ -119,7 +118,6 @@ public class Userdao implements UserService {
 				return repo.searchnumbers(i);
 				
 			}
-			
 			
 			@Override
 			public Map<String, Boolean> deleteuser(Long id) 
@@ -155,44 +153,48 @@ public class Userdao implements UserService {
 			public List<UserModel> finduserbydate(Date date) {
 			return repo.finduserbydate(date);
 			}
+
+			
+
 			
 			
-			@Override
-			public ResponseEntity<Object> createUser(UserModel model) {
-			UserModel user = new UserModel();
-			if (repo.findByEmail(model.getEmail()).isPresent()) {
-			return ResponseEntity.ok("The Email is already Present, Failed to Create new User");
-			} else {
-			user.setId(model.getId());
-			user.setFirstName(model.getFirstName());
-			user.setLastName(model.getLastName());
-			user.setDOB(model.getDOB());
-			user.setAdhar(model.getAdhar());
-			user.setStatus(model.getStatus());
-			user.setEmail(model.getEmail());
-			ContactModel contact=model.getContact();
-			user.setContact(contact);
+	@Override
+ 	public ResponseEntity<Object> createUser(UserModel model) {
+		UserModel user = new UserModel();
+        if (repo.findByEmail(model.getEmail()).isPresent()) {
+            return ResponseEntity.ok("The Email is already Present, Failed to Create new User");
+        } else {
+        	user.setId(model.getId());
+            user.setFirstName(model.getFirstName());
+            user.setLastName(model.getLastName());
+            user.setDOB(model.getDOB());
+            user.setAdhar(model.getAdhar());
+            user.setStatus(model.getStatus());	
+            user.setEmail(model.getEmail());
+            ContactModel contact=model.getContact();
+            user.setContact(contact);
+            
+            user.setCreatedAt(new Date());	
+            List<RoleModel> role=model.getRoles();
+             
+            System.out.println("Role title===="+role.toString());
+             
+            user.setRoles(role);
 
-			user.setCreatedAt(new Date());
-			Set<RoleModel> role=model.getRole();
+            try {
+            	 
+            }
+            catch(Exception e) {
+            	
+            	return ResponseEntity.unprocessableEntity().body("exception"+e);
+            }
+            		
+            UserModel savedUser = repo.save(user);
+         
+            if (repo.findById(savedUser.getId()).isPresent())
+                return ResponseEntity.ok("User Created Successfully");
+            else return ResponseEntity.unprocessableEntity().body("Failed Creating User as Specified");
+        }
+	}
 
-			System.out.println("Role title===="+role.toString());
-
-			user.setRole(role);
-
-			try {
-
-			}
-			catch(Exception e) {
-
-			return ResponseEntity.unprocessableEntity().body("exception"+e);
-			}
-
-			UserModel savedUser = repo.save(user);
-
-			if (repo.findById(savedUser.getId()).isPresent())
-			return ResponseEntity.ok("User Created Successfully");
-			else return ResponseEntity.unprocessableEntity().body("Failed Creating User as Specified");
-			}
-			}
-			}
+}
