@@ -50,6 +50,11 @@ public class UserValidation implements ConstraintValidator<UniqueConstraint, Str
 		return false;
 		
     }
+    
+    public static boolean isregEmailId(String keyword) {
+    		return Pattern.matches("^([_a-zA-Z0-9-]+(\\.[_a-zA-Z0-9-]+)*@[a-zA-Z0-9-]+(\\.[a-zA-Z0-9-]+)*(\\.[a-zA-Z]{1,6}))?$", keyword);
+		
+    }
     public static boolean isFirstName(String keyword) {
     	System.out.print(keyword);
     	if(keyword.length()>=3) {

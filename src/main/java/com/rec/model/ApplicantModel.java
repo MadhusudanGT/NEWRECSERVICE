@@ -117,8 +117,8 @@ public class ApplicantModel {
 	}
 	@Override
 	public String toString() {
-		return "ApplicantModel [Id=" + Id + ", FirstName=" + FirstName + ", LastName=" + LastName + ", Email=" + Email
-				+ ", PhoneNo=" + PhoneNo + ", Summary=" + Summary + ", applicationmodel=" + applicationmodel + "]";
+		return "ApplicantModel [Id=" + Id + ", FirstName=" + FirstName + ", LastName=" + LastName + 
+				", PhoneNo=" + PhoneNo + ", Summary=" + Summary + ", applicationmodel=" + applicationmodel + ", Email=" + Email +"]";
 	}
 
 

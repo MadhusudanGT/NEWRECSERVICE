@@ -52,16 +52,7 @@ public class Userdao implements UserService {
          System.out.print("usermodeloptional"+UserModelOptional);
         UserModel updatedUser;
 
-        try {
-	        
-	          if( (uservalidation.isLastName(data.getLastName())==true &&
-	        		  uservalidation.isFirstName(data.getFirstName())==true) ||
-	        		  (uservalidation.isEmailId(data.getEmail())==true &&
-	        		  uservalidation.isDOB((CharSequence) data.getDOB())==true)||
-	        		  (uservalidation.isAdhar(data.getAdhar())==true &&
-	        		  uservalidation.isStatus(data.getStatus())==true))
-	        		  {
-	        	      System.out.println("successful");
+try {
 		 			UserModelOptional.setFirstName(data.getFirstName());
 		 			UserModelOptional.setLastName(data.getLastName());
 		 			UserModelOptional.setEmail(data.getEmail());
@@ -70,13 +61,6 @@ public class Userdao implements UserService {
 		 			UserModelOptional.setAdhar(data.getAdhar());
 		 			 updatedUser = this.repo.save(data);
 		 			return updatedUser;
-	         }
-	       
-
-         else
-         {
-        	 System.out.print("Insert data properly");
-         }
         
         }
         catch(Exception e) {
@@ -85,8 +69,6 @@ public class Userdao implements UserService {
         return null;
     	
 	}
-		
-		
 		public ResponseEntity<UserModel> getUserById(Long uid) throws ResourceNotFoundException{
 		UserModel status=repo.findById(uid).orElseThrow(() -> new ResourceNotFoundException("user not found"));
 		

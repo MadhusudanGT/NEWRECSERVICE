@@ -1,0 +1,25 @@
+{
+  "files": {
+    "main.css": "/static/css/main.65b43870.chunk.css",
+    "main.js": "/static/js/main.06f06153.chunk.js",
+    "main.js.map": "/static/js/main.06f06153.chunk.js.map",
+    "runtime-main.js": "/static/js/runtime-main.f95ae3b6.js",
+    "runtime-main.js.map": "/static/js/runtime-main.f95ae3b6.js.map",
+    "static/js/2.0adf6a7e.chunk.js": "/static/js/2.0adf6a7e.chunk.js",
+    "static/js/2.0adf6a7e.chunk.js.map": "/static/js/2.0adf6a7e.chunk.js.map",
+    "static/js/3.fe2fb828.chunk.js": "/static/js/3.fe2fb828.chunk.js",
+    "static/js/3.fe2fb828.chunk.js.map": "/static/js/3.fe2fb828.chunk.js.map",
+    "index.html": "/index.html",
+    "static/css/main.65b43870.chunk.css.map": "/static/css/main.65b43870.chunk.css.map",
+    "static/js/2.0adf6a7e.chunk.js.LICENSE.txt": "/static/js/2.0adf6a7e.chunk.js.LICENSE.txt",
+    "static/media/Careers-Banner.6209c47d.png": "/static/media/Careers-Banner.6209c47d.png",
+    "static/media/career-banner1.d5340ff7.jpg": "/static/media/career-banner1.d5340ff7.jpg",
+    "static/media/carrer2.b64cf9f5.jpg": "/static/media/carrer2.b64cf9f5.jpg"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.f95ae3b6.js",
+    "static/js/2.0adf6a7e.chunk.js",
+    "static/css/main.65b43870.chunk.css",
+    "static/js/main.06f06153.chunk.js"
+  ]
+}

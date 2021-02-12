@@ -13,6 +13,7 @@ import com.rec.model.ApplicationDocumentModel;
 import com.rec.model.ApplicationEvaluation;
 import com.rec.model.ApplicationModel;
 import com.rec.repository.ApplicationRepository;
+import com.rec.util.UserValidation;
 
 
 @Service
@@ -20,6 +21,9 @@ public class ApplicationDao {
 
 	@Autowired
 	private ApplicationRepository applicationrepo;
+	
+	@Autowired
+	UserValidation uservalidation;
 	
 	public ApplicationModel Save(ApplicationModel data) {
 		return applicationrepo.save(data);
@@ -47,6 +51,7 @@ public class ApplicationDao {
            newUser.setOtherInfo(data.getOtherInfo());
            newUser.setJobId(data.getJobId());
            newUser.setApplicantId(data.getApplicantId());
+           newUser.setEmailID(data.getEmailID());
            ApplicantModel applicantmodel=data.getApplicantmodel();
            List<ApplicationDocumentModel> appdocumodel=data.getApplicationdocumodel(); 
            newUser.setApplicantmodel(applicantmodel);
@@ -63,4 +68,35 @@ public class ApplicationDao {
 //				.orElseThrow(() -> new com.rec.exception.ResourceNotFoundException("User not found for this id :: " + uid));
 //		return ResponseEntity.ok().body(user);
 //	}
+
+	public ResponseEntity<String> AcceptUser(Long id) {
+		 if(applicationrepo.findById(id).isPresent()) {
+		    	ApplicationModel newUser = applicationrepo.findById(id).get();
+	        newUser.setStatus("Accepted");
+	            ApplicationModel savedUser = applicationrepo.save(newUser);
+	            if(applicationrepo.findById(savedUser.getId()).isPresent())
+	                return  ResponseEntity.accepted().body("status updated");
+	            else return ResponseEntity.unprocessableEntity().body("Failed updating the status");
+	        } else return ResponseEntity.unprocessableEntity().body("Cannot find the staus");
+	}
+
+	public ResponseEntity<String> RejectUser(Long id) {
+		 if(applicationrepo.findById(id).isPresent()) {
+		    	ApplicationModel newUser = applicationrepo.findById(id).get();
+	        newUser.setStatus("Reject");
+	            ApplicationModel savedUser = applicationrepo.save(newUser);
+	            if(applicationrepo.findById(savedUser.getId()).isPresent())
+	                return  ResponseEntity.accepted().body("status updated");
+	            else return ResponseEntity.unprocessableEntity().body("Failed updating the status");
+	        } else return ResponseEntity.unprocessableEntity().body("Cannot find the staus");
+	}
+
+	public ApplicationModel getByEmailId(String email) {
+		if(uservalidation.isregEmailId(email)) {
+			System.out.print("valide eamil");
+			return applicationrepo.findByEmailId(email);
+		}
+		return null;
+		}
+	
 }

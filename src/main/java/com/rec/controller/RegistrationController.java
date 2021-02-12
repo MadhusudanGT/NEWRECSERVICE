@@ -7,13 +7,16 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.rec.dao.RegistrationDao;
+import com.rec.exception.ResourceNotFoundException;
 import com.rec.model.RegistrationModel;
+import com.rec.model.UserModel;
 import com.rec.repository.RegistrationRepository;
 
 @CrossOrigin
@@ -36,6 +39,11 @@ return regrepo.findAll();
 public RegistrationModel createRegistration(@RequestBody RegistrationModel app) {
 RegistrationModel ref =regdao.Save(app);
 return ref;
+}
+
+@GetMapping(path="/findByEmail/{email}" , produces="application/json")
+public RegistrationModel getByEmailId(@PathVariable(value="email") String email) throws ResourceNotFoundException {
+return regdao.getByEmailId(email);
 }
 }
 

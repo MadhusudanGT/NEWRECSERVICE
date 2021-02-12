@@ -45,6 +45,30 @@ public class ApplicationModel {
 	@Column(name="applicantId")
 	private Long applicantId;
 	
+	@Column(name="status")
+	private String status;
+	
+	@Column(name="Email")
+	private String EmailID;
+	
+	
+
+	public String getEmailID() {
+		return EmailID;
+	}
+
+	public void setEmailID(String emailID) {
+		EmailID = emailID;
+	}
+
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
+	}
+
 	@ManyToOne(cascade = CascadeType.ALL)
     private ApplicantModel applicantmodel;
 	
@@ -126,16 +150,17 @@ public class ApplicationModel {
 	public ApplicationModel() {
 		super();
 	}
+
 	@Override
 	public String toString() {
 		return "ApplicationModel [Id=" + Id + ", AppliedDate=" + AppliedDate + ", Education=" + Education
 				+ ", Experience=" + Experience + ", OtherInfo=" + OtherInfo + ", jobId=" + jobId + ", applicantId="
-				+ applicantId + ", applicantmodel=" + applicantmodel + ", applicationdocumodel=" + applicationdocumodel
-				+ "]";
+				+ applicantId + ", status=" + status + ", EmailID=" + EmailID + ", applicantmodel=" + applicantmodel
+				+ ", applicationdocumodel=" + applicationdocumodel + "]";
 	}
 
 	public ApplicationModel(Long id, Date appliedDate, String education, String experience, String otherInfo,
-			Long jobId, Long applicantId, ApplicantModel applicantmodel,
+			Long jobId, Long applicantId, String status, String emailID, ApplicantModel applicantmodel,
 			List<ApplicationDocumentModel> applicationdocumodel) {
 		super();
 		Id = id;
@@ -145,9 +170,13 @@ public class ApplicationModel {
 		OtherInfo = otherInfo;
 		this.jobId = jobId;
 		this.applicantId = applicantId;
+		this.status = status;
+		EmailID = emailID;
 		this.applicantmodel = applicantmodel;
 		this.applicationdocumodel = applicationdocumodel;
 	}
+	
+	
 	
 	
 }

@@ -61,11 +61,9 @@ public class UserController {
 	@PutMapping("/update/{id}")
 	public UserModel updateuser(@PathVariable(value="id") Long id,@Valid @RequestBody UserModel data) throws ResourceNotFoundException {
 	System.out.println(id+" "+data);
-//	userval.validate(UniqueConstraint., bindingResult);
 	return userservice.updateuser(id,data);
-	
-
 	}
+	
 //	@PostMapping(path="/create",consumes = "application/json", produces = "application/json")
 //	public ResponseEntity<UserModel> createuser(@RequestBody UserModel data) {
 //

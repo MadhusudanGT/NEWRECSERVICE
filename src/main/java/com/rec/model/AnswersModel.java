@@ -34,7 +34,7 @@ private Long TotalGrades;
 @Column(name="Pass")
 private boolean Pass;
 
-@Column(name="AnswerDetials",unique=true)
+@Column(name="AnswerDetials")
 private String AnswerDetials;
 
 @ManyToOne(cascade = CascadeType.ALL)

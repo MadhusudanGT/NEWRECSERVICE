@@ -1,5 +1,6 @@
 package com.rec.model;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -36,6 +37,7 @@ private String Address;
 
 @NotNull
 private String Password;
+
 
 public Long getId() {
 return Id;

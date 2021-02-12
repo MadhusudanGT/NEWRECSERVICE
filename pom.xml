@@ -11,7 +11,7 @@
 	<groupId>com.rec</groupId>
 	<artifactId>RECServices</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>RECServices</name>
+	<name>MADHUSUDAN G T REC PROJECT</name>
 	<description>REC project for Spring Boot and Postgres REST API</description>
 
 	<properties>

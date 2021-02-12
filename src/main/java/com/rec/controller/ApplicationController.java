@@ -1,6 +1,7 @@
 package com.rec.controller;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,8 +19,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.rec.dao.ApplicationDao;
 import com.rec.exception.ResourceNotFoundException;
+import com.rec.model.ApplicantModel;
 import com.rec.model.ApplicationEvaluation;
 import com.rec.model.ApplicationModel;
+import com.rec.model.RegistrationModel;
 import com.rec.repository.ApplicationRepository;
 
 
@@ -83,5 +86,21 @@ public List<ApplicationModel> getRoles() {
 @PutMapping("/update/{id}")
 public ResponseEntity<Object> updateRole(@PathVariable Long id, @RequestBody ApplicationModel role) {
     return applicationdao.updateRole(id, role);
+}
+
+
+@GetMapping("/accept/{id}")
+	public ResponseEntity<String> AcceptApplication(@PathVariable(value = "id") Long id) throws ResourceNotFoundException{
+		return this.applicationdao.AcceptUser(id);
+	}
+
+@GetMapping("/reject/{id}")
+public ResponseEntity<String> RejectApplication(@PathVariable(value = "id") Long id) throws ResourceNotFoundException{
+	return this.applicationdao.RejectUser(id);
+}
+
+@GetMapping(path="/findByEmail/{email}" , produces="application/json")
+public ApplicationModel getByEmailId(@PathVariable(value="email") String email) throws ResourceNotFoundException {
+return applicationdao.getByEmailId(email);
 }
 }
