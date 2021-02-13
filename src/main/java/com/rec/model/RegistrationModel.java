@@ -38,6 +38,18 @@ private String Address;
 @NotNull
 private String Password;
 
+@NotNull
+private String registredStatus;
+
+
+
+public String getRegistredStatus() {
+	return registredStatus;
+}
+
+public void setRegistredStatus(String registredStatus) {
+	this.registredStatus = registredStatus;
+}
 
 public Long getId() {
 return Id;
@@ -114,6 +126,8 @@ PhoneNo = phoneNo;
 Address = address;
 Password = password;
 }
+
+
 
 
 

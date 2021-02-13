@@ -12,7 +12,9 @@ import com.rec.model.ApplicantModel;
 import com.rec.model.ApplicationDocumentModel;
 import com.rec.model.ApplicationEvaluation;
 import com.rec.model.ApplicationModel;
+import com.rec.model.RegistrationModel;
 import com.rec.repository.ApplicationRepository;
+import com.rec.repository.RegistrationRepository;
 import com.rec.util.UserValidation;
 
 
@@ -24,6 +26,9 @@ public class ApplicationDao {
 	
 	@Autowired
 	UserValidation uservalidation;
+	
+	@Autowired
+	private RegistrationRepository repo;
 	
 	public ApplicationModel Save(ApplicationModel data) {
 		return applicationrepo.save(data);
@@ -98,5 +103,16 @@ public class ApplicationDao {
 		}
 		return null;
 		}
+
+	public ResponseEntity<String> Applicaitionregistred(Long id) {
+		 if(repo.findById(id).isPresent()) {
+		    	RegistrationModel newUser = repo.findById(id).get();
+	        newUser.setRegistredStatus("registred");
+	        RegistrationModel savedUser = repo.save(newUser);
+	            if(repo.findById(savedUser.getId()).isPresent())
+	                return  ResponseEntity.accepted().body("status updated");
+	            else return ResponseEntity.unprocessableEntity().body("Failed updating the status");
+	        } else return ResponseEntity.unprocessableEntity().body("Cannot find the staus");
+	}
 	
 }

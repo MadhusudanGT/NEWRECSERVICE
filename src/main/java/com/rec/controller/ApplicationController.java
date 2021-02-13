@@ -103,4 +103,10 @@ public ResponseEntity<String> RejectApplication(@PathVariable(value = "id") Long
 public ApplicationModel getByEmailId(@PathVariable(value="email") String email) throws ResourceNotFoundException {
 return applicationdao.getByEmailId(email);
 }
+
+@GetMapping("/registreed/{id}")
+public ResponseEntity<String> Applicaitionregistred(@PathVariable(value = "id") Long id) throws ResourceNotFoundException{
+	return this.applicationdao.Applicaitionregistred(id);
+}
+
 }
